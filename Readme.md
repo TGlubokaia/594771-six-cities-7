@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Таня](https://up.htmlacademy.ru/react/7/user/594771).
-* Наставник: `Неизвестно`.
+* Наставник: [Владислав](https://htmlacademy.ru/profile/whatislove).
 
 ---
 
