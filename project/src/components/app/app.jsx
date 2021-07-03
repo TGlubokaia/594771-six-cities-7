@@ -1,7 +1,9 @@
 import React from 'react';
+import MainScreen from '../main/main-screen';
 
-function App() {
-  return <p>Hello, world!</p>;
+function App(props) {
+  const {aptCount} = props;
+  return <MainScreen aptCount={aptCount} />;
 }
 
 export default App;
