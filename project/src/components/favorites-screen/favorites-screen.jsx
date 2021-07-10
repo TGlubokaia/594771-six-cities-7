@@ -1,5 +1,7 @@
 import React from 'react';
 import { Fragment } from 'react';
+import Logo from '../logo/logo';
+import LogoFooter from '../logo/logo-footer';
 
 function FavoritesScreen() {
   return (
@@ -13,9 +15,7 @@ function FavoritesScreen() {
           <div className="container">
             <div className="header__wrapper">
               <div className="header__left">
-                <a className="header__logo-link" href="/">
-                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"></img>
-                </a>
+                <Logo />
               </div>
               <nav className="header__nav">
                 <ul className="header__nav-list">
@@ -164,9 +164,7 @@ function FavoritesScreen() {
           </div>
         </main>
         <footer className="footer container">
-          <a className="footer__logo-link" href="main.html">
-            <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33"></img>
-          </a>
+          <LogoFooter />
         </footer>
       </div>
     </Fragment>
