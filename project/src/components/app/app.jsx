@@ -7,23 +7,28 @@ import RoomScreen from '../room-screen/room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropTypes from 'prop-types';
 import {AppRoute} from '../../const.js';
+import aptDataProp from '../apt.prop';
+import reviewDataProp from '../room-screen/room-screen.prop';
 
 
 function App(props) {
-  const { aptCount } = props;
+  const { offers, reviews } = props;
   return(
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <MainScreen
-            aptCount={aptCount}
+            offers={offers}
           />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
           <FavoritesScreen />
         </Route>
         <Route exact path={AppRoute.ROOM}>
-          <RoomScreen />
+          <RoomScreen
+            offers={offers}
+            reviews={reviews}
+          />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <SignInScreen />
@@ -37,7 +42,8 @@ function App(props) {
 }
 
 App.propTypes = {
-  aptCount: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(aptDataProp),
+  reviews: PropTypes.arrayOf(reviewDataProp),
 };
 
 export default App;

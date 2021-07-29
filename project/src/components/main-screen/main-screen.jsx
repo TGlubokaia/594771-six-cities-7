@@ -2,17 +2,18 @@ import React from 'react';
 import AptItem from '../apt-item/apt-item';
 import PropTypes from 'prop-types';
 import Logo from '../logo/logo';
+import aptDataProp from '../apt.prop';
 
-const renderApt = function (count) {
+const renderApt = function (offers) {
   const items = [];
-  for (let i = 0; i < count; i++) {
-    items.push(<AptItem />);
+  for (let i = 0; i < offers.length; i++) {
+    items.push(<AptItem offer={offers[i]}/>);
   }
   return items;
 };
 
 function MainScreen(props) {
-  const {aptCount} = props;
+  const {offers} = props;
 
   return (
     <React.Fragment>
@@ -105,7 +106,7 @@ function MainScreen(props) {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  {renderApt(aptCount)}
+                  {renderApt(offers)}
                 </div>
               </section>
               <div className="cities__right-section">
@@ -120,7 +121,7 @@ function MainScreen(props) {
 }
 
 MainScreen.propTypes = {
-  aptCount: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(aptDataProp),
 };
 
 export default MainScreen;

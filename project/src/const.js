@@ -5,11 +5,11 @@ const AppRoute = {
   ROOT: '/',
 };
 
-// const OfferType = {
-//     APARTMENT: 'Apartment',
-//     ROOM: 'Private Room',
-//     HOUSE: 'House',
-//     HOTEL: 'Hotel',
-// }
+const OfferType = {
+  APARTMENT: 'Apartment',
+  ROOM: 'Private Room',
+  HOUSE: 'House',
+  HOTEL: 'Hotel',
+};
 
-export {AppRoute};
+export { AppRoute, OfferType };
