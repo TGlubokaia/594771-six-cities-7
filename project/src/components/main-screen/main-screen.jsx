@@ -2,15 +2,8 @@ import React from 'react';
 import AptItem from '../apt-item/apt-item';
 import PropTypes from 'prop-types';
 import Logo from '../logo/logo';
-import aptDataProp from '../apt.prop';
-
-const renderApt = function (offers) {
-  const items = [];
-  for (let i = 0; i < offers.length; i++) {
-    items.push(<AptItem offer={offers[i]}/>);
-  }
-  return items;
-};
+import offerProp from '../../common/prop-types/offer.prop';
+import { nanoid } from 'nanoid';
 
 function MainScreen(props) {
   const {offers} = props;
@@ -106,7 +99,7 @@ function MainScreen(props) {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  {renderApt(offers)}
+                  {offers.map((offer, i) => <AptItem key={nanoid()} offer={offer} />)}
                 </div>
               </section>
               <div className="cities__right-section">
@@ -121,7 +114,7 @@ function MainScreen(props) {
 }
 
 MainScreen.propTypes = {
-  offers: PropTypes.arrayOf(aptDataProp),
+  offers: PropTypes.arrayOf(offerProp),
 };
 
 export default MainScreen;

@@ -7,7 +7,7 @@ import RoomScreen from '../room-screen/room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropTypes from 'prop-types';
 import {AppRoute} from '../../const.js';
-import aptDataProp from '../apt.prop';
+import offerProp from '../../common/prop-types/offer.prop';
 import reviewDataProp from '../room-screen/room-screen.prop';
 
 
@@ -42,7 +42,7 @@ function App(props) {
 }
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(aptDataProp),
+  offers: PropTypes.arrayOf(offerProp),
   reviews: PropTypes.arrayOf(reviewDataProp),
 };
 

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-const aptDataProp = PropTypes.shape({
+const offerProp = PropTypes.shape({
   id: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   city: PropTypes.shape({
@@ -36,4 +36,4 @@ const aptDataProp = PropTypes.shape({
 },
 );
 
-export default aptDataProp;
+export default offerProp;
