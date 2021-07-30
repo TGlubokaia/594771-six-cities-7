@@ -68,8 +68,8 @@ const offers = [
       longitude: 4.673877537499948,
       zoom: 8,
     },
-    isFavorite: false,
     isPremium: false,
+    isFavorite: true,
   },
   {
     id: nanoid(),
@@ -103,7 +103,7 @@ const offers = [
       zoom: 8,
     },
     isPremium: true,
-    isFavorite: false,
+    isFavorite: true,
   },
   {
     id: nanoid(),
