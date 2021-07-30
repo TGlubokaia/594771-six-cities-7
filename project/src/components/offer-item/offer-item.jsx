@@ -1,9 +1,10 @@
 import React from 'react';
 import offerProp from '../../common/prop-types/offer.prop';
 
-function AptItem(props) {
+function OfferItem(props) {
   const { offer } = props;
   const { type, price, title, rating, previewImage, isPremium, isFavorite } = offer;
+
   function PremiumMark() {
     return <div className="place-card__mark"><span>Premium</span></div>;
   }
@@ -44,8 +45,8 @@ function AptItem(props) {
   );
 }
 
-AptItem.propTypes = {
+OfferItem.propTypes = {
   offer: offerProp,
 };
 
-export default AptItem;
+export default OfferItem;

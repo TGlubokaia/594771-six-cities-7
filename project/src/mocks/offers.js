@@ -80,7 +80,7 @@ const offers = [
         longitude: 4.895168,
         zoom: 10,
       },
-      cityName: 'Amsterdam',
+      cityName: 'Rome',
     },
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     bedrooms: 3,

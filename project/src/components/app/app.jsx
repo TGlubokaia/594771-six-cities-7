@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import {AppRoute} from '../../const.js';
 import offerProp from '../../common/prop-types/offer.prop';
 import reviewDataProp from '../room-screen/room-screen.prop';
+import { getFavoritesItems } from '../../const.js';
 
 
 function App(props) {
@@ -22,7 +23,9 @@ function App(props) {
           />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <FavoritesScreen />
+          <FavoritesScreen
+            offers={getFavoritesItems(offers)}
+          />
         </Route>
         <Route exact path={AppRoute.ROOM}>
           <RoomScreen

@@ -1,9 +1,8 @@
 import React from 'react';
-import AptItem from '../apt-item/apt-item';
+import OfferItem from '../offer-item/offer-item';
 import PropTypes from 'prop-types';
 import Logo from '../logo/logo';
 import offerProp from '../../common/prop-types/offer.prop';
-import { nanoid } from 'nanoid';
 
 function MainScreen(props) {
   const {offers} = props;
@@ -99,7 +98,7 @@ function MainScreen(props) {
                   </ul>
                 </form>
                 <div className="cities__places-list places__list tabs__content">
-                  {offers.map((offer, i) => <AptItem key={nanoid()} offer={offer} />)}
+                  {offers.map((offer) => <OfferItem key={offer.id} offer={offer} />)}
                 </div>
               </section>
               <div className="cities__right-section">

@@ -12,4 +12,9 @@ const OfferType = {
   HOTEL: 'Hotel',
 };
 
-export { AppRoute, OfferType };
+const getFavoritesItems = function (offers) {
+  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+  return favoriteOffers;
+};
+
+export { AppRoute, OfferType, getFavoritesItems };
