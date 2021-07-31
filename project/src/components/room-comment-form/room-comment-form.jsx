@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 function RoomCommentForm() {
-  // const [data, setData] = useState({
-  //   user: '',
-  //   rating: 0,
-  //   comment: '',
-  // });
-  // const [user, rating, comment] = data;
+  const [data, setData] = useState({
+    user: '',
+    rating: 0,
+    review: '',
+  });
+  const {review} = data;
+
+  const handleFieldChange = (evt) => {
+    const {name, value} = evt.target;
+    setData((prev) => ({...prev, [name]: value}))
+  }
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" action="#" method="post" onChange={handleFieldChange}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" />
@@ -47,7 +52,14 @@ function RoomCommentForm() {
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
+      <textarea
+        className="reviews__textarea form__textarea"
+        id="review"
+        name="review"
+        placeholder="Tell how was your stay, what you like and what can be improved"
+        onChange={handleFieldChange}
+        value={review}
+      ></textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
@@ -55,6 +67,7 @@ function RoomCommentForm() {
         <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
       </div>
     </form>
+
   );
 }
 export default RoomCommentForm;

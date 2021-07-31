@@ -1,4 +1,6 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const.js';
 import PropTypes from 'prop-types';
 import offerProp from '../../common/prop-types/offer.prop';
 
@@ -42,7 +44,10 @@ function MainOfferItem(props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={AppRoute.ROOM}>
+            {title}
+          </Link>
+          <a href="#"></a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

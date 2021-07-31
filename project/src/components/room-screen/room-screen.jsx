@@ -1,10 +1,14 @@
 import React from 'react';
+import offerProp from '../../common/prop-types/offer.prop';
 import { Fragment } from 'react';
 import Logo from '../logo/logo';
 import RoomCommentForm from '../room-comment-form/room-comment-form';
 
 
 function RoomScreen() {
+  // const {offer} = props;
+  // const {type, city, goods, bedrooms, maxAdults, title} = offer;
+
   return (
     <Fragment>
       <div style={{ display: 'none' }}>
@@ -306,4 +310,9 @@ function RoomScreen() {
     </Fragment>
   );
 }
+
+RoomScreen.propTypes = {
+  offer: offerProp,
+};
+
 export default RoomScreen;

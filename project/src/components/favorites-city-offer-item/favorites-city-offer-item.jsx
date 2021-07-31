@@ -1,5 +1,7 @@
 import React from 'react';
 import offerProp from '../../common/prop-types/offer.prop';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const.js';
 
 function FavoritesCityOfferItem(props) {
   const { offer } = props;
@@ -32,7 +34,9 @@ function FavoritesCityOfferItem(props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={AppRoute.ROOM}>
+            {title}
+          </Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
