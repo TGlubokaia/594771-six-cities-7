@@ -4,7 +4,7 @@ import offerProp from '../../common/prop-types/offer.prop';
 function FavoritesCityOfferItem(props) {
   const { offer } = props;
 
-  const { price, rating, type, previewImage } = offer;
+  const { price, rating, type, previewImage, title } = offer;
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
@@ -32,7 +32,7 @@ function FavoritesCityOfferItem(props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">White castle</a>
+          <a href="#">{title}</a>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

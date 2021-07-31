@@ -1,16 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import offerProp from '../../common/prop-types/offer.prop';
 
-function OfferItem(props) {
-  const { offer } = props;
+function MainOfferItem(props) {
+  const { offer, onOfferFocus } = props;
   const { type, price, title, rating, previewImage, isPremium, isFavorite } = offer;
 
   function PremiumMark() {
     return <div className="place-card__mark"><span>Premium</span></div>;
   }
 
+
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card"
+      onFocus={() => onOfferFocus()}
+    >
+
       {isPremium && <PremiumMark />}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
@@ -45,8 +50,9 @@ function OfferItem(props) {
   );
 }
 
-OfferItem.propTypes = {
+MainOfferItem.propTypes = {
   offer: offerProp,
+  onOfferFocus: PropTypes.func.isRequired,
 };
 
-export default OfferItem;
+export default MainOfferItem;

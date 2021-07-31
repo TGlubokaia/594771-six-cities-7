@@ -1,8 +1,8 @@
 import React from 'react';
-import OfferItem from '../offer-item/offer-item';
 import PropTypes from 'prop-types';
 import Logo from '../logo/logo';
 import offerProp from '../../common/prop-types/offer.prop';
+import MainOfferItemsList from '../main-offer-items-list/main-offer-items-list';
 
 function MainScreen(props) {
   const {offers} = props;
@@ -97,9 +97,7 @@ function MainScreen(props) {
                     <li className="places__option" tabIndex="0">Top rated first</li>
                   </ul>
                 </form>
-                <div className="cities__places-list places__list tabs__content">
-                  {offers.map((offer) => <OfferItem key={offer.id} offer={offer} />)}
-                </div>
+                <MainOfferItemsList offers={offers}/>
               </section>
               <div className="cities__right-section">
                 <section className="cities__map map"></section>
