@@ -17,4 +17,13 @@ const getFavoritesItems = function (offers) {
   return favoriteOffers;
 };
 
-export { AppRoute, OfferType, getFavoritesItems };
+
+const getRating = function (count) {
+  return Math.round(count) * 20
+}
+
+const getPluralDesc = function (count) {
+  return count > 1 ? 's' : '';
+}
+
+export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc };

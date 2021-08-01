@@ -6,11 +6,9 @@ import FavoritesScreen from '../favorites-screen/favorites-screen';
 import RoomScreen from '../room-screen/room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropTypes from 'prop-types';
-import {AppRoute} from '../../const.js';
+import {AppRoute, getFavoritesItems } from '../../const';
 import offerProp from '../../common/prop-types/offer.prop';
 import reviewDataProp from '../room-screen/room-screen.prop';
-import { getFavoritesItems } from '../../const.js';
-
 
 function App(props) {
   const { offers, reviews } = props;
@@ -27,10 +25,10 @@ function App(props) {
             offers={getFavoritesItems(offers)}
           />
         </Route>
-        <Route exact path={AppRoute.ROOM}>
+        <Route path={AppRoute.ROOM}>
           <RoomScreen
             offers={offers}
-            reviews={reviews}
+            // reviews={reviews}
           />
         </Route>
         <Route exact path={AppRoute.LOGIN}>

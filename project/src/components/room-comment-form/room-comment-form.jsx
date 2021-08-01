@@ -10,7 +10,7 @@ function RoomCommentForm() {
 
   const handleFieldChange = (evt) => {
     const {name, value} = evt.target;
-    setData((prev) => ({...prev, [name]: value}))
+    setData({...data, [name]: value})
   }
 
   return (

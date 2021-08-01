@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const.js';
+import {AppRoute, getRating} from '../../const.js';
 import PropTypes from 'prop-types';
 import offerProp from '../../common/prop-types/offer.prop';
 
@@ -8,17 +8,12 @@ function MainOfferItem(props) {
   const { offer, onOfferFocus } = props;
   const { type, price, title, rating, previewImage, isPremium, isFavorite } = offer;
 
-  function PremiumMark() {
-    return <div className="place-card__mark"><span>Premium</span></div>;
-  }
-
-
   return (
     <article className="cities__place-card place-card"
       onFocus={() => onOfferFocus()}
     >
 
-      {isPremium && <PremiumMark />}
+      {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
@@ -39,12 +34,12 @@ function MainOfferItem(props) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{ width: `${Math.round(rating) * 20}%` }}></span>
+            <span style={{ width: `${getRating(rating)}%` }}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.ROOM}>
+          <Link to={`/offer/${offer.id}`}>
             {title}
           </Link>
           <a href="#"></a>
