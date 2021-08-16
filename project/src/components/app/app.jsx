@@ -8,10 +8,10 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropTypes from 'prop-types';
 import {AppRoute, getFavoritesItems } from '../../const';
 import offerProp from '../../common/prop-types/offer.prop';
-import reviewDataProp from '../room-screen/room-screen.prop';
+// import reviewDataProp from '../room-screen/room-screen.prop';
 
 function App(props) {
-  const { offers, reviews } = props;
+  const {offers} = props;
   return(
     <BrowserRouter>
       <Switch>
@@ -44,7 +44,7 @@ function App(props) {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(offerProp),
-  reviews: PropTypes.arrayOf(reviewDataProp),
+  // reviews: PropTypes.arrayOf(reviewDataProp),
 };
 
 export default App;

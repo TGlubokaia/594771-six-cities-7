@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import {AppRoute, getRating} from '../../const.js';
+import {getRating} from '../../const.js';
 import PropTypes from 'prop-types';
 import offerProp from '../../common/prop-types/offer.prop';
 

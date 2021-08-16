@@ -17,6 +17,7 @@ function MainOfferItemsList(props) {
             setOfferOnFocus(offer.id);
           }}
         />))}
+      <span>{offerOnFocus}</span>
     </div>);
 }
 

@@ -19,11 +19,20 @@ const getFavoritesItems = function (offers) {
 
 
 const getRating = function (count) {
-  return Math.round(count) * 20
-}
+  return Math.round(count) * 20;
+};
 
 const getPluralDesc = function (count) {
   return count > 1 ? 's' : '';
-}
+};
 
-export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc };
+const city = {
+  location: {
+    latitude: 52.38333,
+    longitude: 4.9,
+    zoom: 8,
+  },
+  cityName: 'Amsterdam',
+};
+
+export { city, AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc };

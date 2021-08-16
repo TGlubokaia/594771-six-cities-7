@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Logo from '../logo/logo';
+import {city} from '../../const';
 import offerProp from '../../common/prop-types/offer.prop';
 import MainOfferItemsList from '../main-offer-items-list/main-offer-items-list';
+import Map from '../map/map';
 
 function MainScreen(props) {
   const {offers} = props;
+  const points = offers.map((offer) => offer.location);
 
   return (
     <React.Fragment>
@@ -100,7 +103,7 @@ function MainScreen(props) {
                 <MainOfferItemsList offers={offers}/>
               </section>
               <div className="cities__right-section">
-                <section className="cities__map map"></section>
+                <Map city={city} points={points}/>
               </div>
             </div>
           </div>

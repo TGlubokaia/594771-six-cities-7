@@ -8,8 +8,8 @@ const offers = [
     type: 'Apartment',
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
         zoom: 10,
       },
       cityName: 'Amsterdam',
@@ -30,8 +30,8 @@ const offers = [
       isPro: true,
     },
     location: {
-      latitude: 52.35514938496378,
-      longitude: 4.673877537499948,
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
       zoom: 8,
     },
     isPremium: false,
@@ -42,8 +42,8 @@ const offers = [
     type: 'Private Room',
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        latitude: 52.3909553943508,
+        longitude: 4.929309666406198,
         zoom: 10,
       },
       cityName: 'Amsterdam',
@@ -76,8 +76,8 @@ const offers = [
     type: 'House',
     city: {
       location: {
-        latitude: 52.370216,
-        longitude: 4.895168,
+        latitude: 52.3809553943508,
+        longitude: 4.939309666406198,
         zoom: 10,
       },
       cityName: 'Amsterdam',

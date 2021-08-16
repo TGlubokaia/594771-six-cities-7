@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import offerProp from '../../common/prop-types/offer.prop';
 import { Fragment } from 'react';
@@ -10,8 +11,8 @@ import { getRating, getPluralDesc } from '../../const';
 function RoomScreen(props) {
   const { offers } = props;
   const params = useParams();
-  const offer = offers.find((offer) => offer.id === params.id);
-  const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images } = offer;
+  const offerItem = offers.find((offer) => offer.id === params.id);
+  const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images} = offerItem;
 
   return (
     <Fragment>
@@ -60,16 +61,18 @@ function RoomScreen(props) {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {images.map((image) => (<div className="property__image-wrapper">
-                  <img className="property__image" src={image} alt="Photo studio" />
-                </div>))}
+                {images.map((image) => (
+                  <div key={image} className="property__image-wrapper">
+                    <img className="property__image" src={image} alt="Photo studio" />
+                  </div>))}
               </div>
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
-                {isPremium && <div className="property__mark">
-                  <span>Premium</span>
-                </div>}
+                {isPremium && (
+                  <div className="property__mark">
+                    <span>Premium</span>
+                  </div>)}
                 <div className="property__name-wrapper">
                   <h1 className="property__name">
                     {title}
@@ -107,7 +110,7 @@ function RoomScreen(props) {
                   <h2 className="property__inside-title">What&apos;s inside</h2>
                   <ul className="property__inside-list">
                     {goods.map((good) => (
-                      <li className="property__inside-item">
+                      <li key={good} className="property__inside-item">
                         {good}
                       </li>
                     ))}
@@ -122,14 +125,16 @@ function RoomScreen(props) {
                     <span className="property__user-name">
                       {host.hostName}
                     </span>
-                    {host.isPro && <span className="property__user-status">
-                      Pro
-                    </span>}
+                    {host.isPro && (
+                      <span className="property__user-status">
+                        Pro
+                      </span>)}
                   </div>
                   <div className="property__description">
-                    {desc && <p className="property__text">
-                      {desc}
-                    </p>}
+                    {desc && (
+                      <p className="property__text">
+                        {desc}
+                      </p>)}
                   </div>
                 </div>
                 <section className="property__reviews reviews">
@@ -273,7 +278,7 @@ function RoomScreen(props) {
 }
 
 RoomScreen.propTypes = {
-  offer: offerProp,
+  offers: PropTypes.arrayOf(offerProp),
 };
 
 export default RoomScreen;
