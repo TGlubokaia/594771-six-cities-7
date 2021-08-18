@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import leaflet, { point } from 'leaflet';
+import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 import useMap from '../../hooks/useMap';
@@ -18,17 +18,15 @@ function Map(props) {
 
   useEffect(() => {
     if (map) {
-      points.forEach(
+      points.forEach((point) => {
         leaflet
           .marker({
             lat: point.latitude,
             lng: point.longitude,
           }, { icon: iconDesign })
-          .addTo(map),
-      );
-
+          .addTo(map);
+      });
     }
-
   }, [map]);
 
   return (
