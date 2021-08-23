@@ -8,16 +8,19 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropTypes from 'prop-types';
 import {AppRoute, getFavoritesItems } from '../../const';
 import offerProp from '../../common/prop-types/offer.prop';
-// import reviewDataProp from '../room-screen/room-screen.prop';
+import reviews from '../../mocks/reviews';
 
 function App(props) {
   const {offers} = props;
+  const points = offers.map((offer) => offer.location);
+
   return(
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <MainScreen
             offers={offers}
+            points={points}
           />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
@@ -28,7 +31,8 @@ function App(props) {
         <Route path={AppRoute.ROOM}>
           <RoomScreen
             offers={offers}
-            // reviews={reviews}
+            reviews={reviews}
+            points={points}
           />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
@@ -44,7 +48,6 @@ function App(props) {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(offerProp),
-  // reviews: PropTypes.arrayOf(reviewDataProp),
 };
 
 export default App;

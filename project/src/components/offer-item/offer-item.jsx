@@ -3,18 +3,19 @@ import {Link} from 'react-router-dom';
 import {getRating} from '../../const.js';
 import PropTypes from 'prop-types';
 import offerProp from '../../common/prop-types/offer.prop';
+import classesProp from '../../common/prop-types/classes.prop';
 
-function MainOfferItem(props) {
-  const { offer, onOfferFocus } = props;
+function OfferItem(props) {
+  const { offer, onOfferFocus, classes } = props;
   const { type, price, title, rating, previewImage, isPremium, isFavorite } = offer;
 
   return (
-    <article className="cities__place-card place-card"
+    <article className={`${classes.ITEM} place-card`}
       onFocus={() => onOfferFocus()}
     >
 
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${classes.WRAPPER}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>
@@ -50,9 +51,10 @@ function MainOfferItem(props) {
   );
 }
 
-MainOfferItem.propTypes = {
+OfferItem.propTypes = {
   offer: offerProp,
   onOfferFocus: PropTypes.func.isRequired,
+  classes: classesProp,
 };
 
-export default MainOfferItem;
+export default OfferItem;

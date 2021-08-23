@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 
-const reviewDataProp = PropTypes.shape({
+const reviewProp = PropTypes.shape({
   id: PropTypes.number.isRequired,
-  userRating: PropTypes.number.isRequired,
+  rating: PropTypes.number.isRequired,
   date: PropTypes.string.isRequired,
   comment: PropTypes.string.isRequired,
   user: PropTypes.shape({
@@ -14,4 +14,4 @@ const reviewDataProp = PropTypes.shape({
   )},
 );
 
-export default reviewDataProp;
+export default reviewProp;

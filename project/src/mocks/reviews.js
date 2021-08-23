@@ -6,9 +6,9 @@ const AVATAR_URL = 'https://i.pravatar.cc/128';
 const reviews = [
   {
     id: nanoid(),
-    userRating: getRandomIntInclusive(1, 5),
-    date: 'April 2019',
-    text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
+    rating: getRandomIntInclusive(1, 5),
+    date: 'April 2019', //2019-05-08T14:13:56.569Z
+    comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
     user: {
       userAvatar: `${AVATAR_URL}?rnd=${Math.random()}`,
       id: 2,
@@ -18,9 +18,9 @@ const reviews = [
   },
   {
     id: nanoid(),
-    userRating: getRandomIntInclusive(1, 5),
+    rating: getRandomIntInclusive(1, 5),
     date: 'June 2018',
-    text: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
+    comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
     user: {
       userAvatar: `${AVATAR_URL}?rnd=${Math.random()}`,
       id: 3,
@@ -30,7 +30,7 @@ const reviews = [
   },
   {
     id: nanoid(),
-    userRating: getRandomIntInclusive(1, 5),
+    rating: getRandomIntInclusive(1, 5),
     date: 'December 2018',
     comment: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.',
     user: {

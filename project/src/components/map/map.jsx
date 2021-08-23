@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import pointProp from '../../common/prop-types/point.prop';
 
 import useMap from '../../hooks/useMap';
 
@@ -49,11 +50,7 @@ Map.propTypes = {
     }),
     cityName: PropTypes.string.isRequired,
   }),
-  points: PropTypes.arrayOf(PropTypes.shape({
-    latitude: PropTypes.number.isRequired,
-    longitude: PropTypes.number.isRequired,
-    zoom: PropTypes.number.isRequired,
-  })),
+  points: PropTypes.arrayOf(pointProp),
 };
 
 export default Map;
