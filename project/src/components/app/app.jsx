@@ -8,10 +8,11 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropTypes from 'prop-types';
 import {AppRoute, getFavoritesItems } from '../../const';
 import offerProp from '../../common/prop-types/offer.prop';
-import reviews from '../../mocks/reviews';
+import reviewProp from '../../common/prop-types/reviews.prop';
+
 
 function App(props) {
-  const {offers} = props;
+  const {offers, reviews} = props;
   const points = offers.map((offer) => offer.location);
 
   return(

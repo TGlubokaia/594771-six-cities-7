@@ -1,20 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
 import offers from './mocks/offers';
 import reviews from './mocks/reviews';
+import {reducer} from './store/reducer';
 
 const Setting = {
-  APT_COUNT: 5,
+  OFFER_COUNT: 5,
 };
+
+const store = createStore(
+  reducer,
+  composeWithDevTools(),
+  );
 
 ReactDOM.render(
   <React.StrictMode>
-    <App
-      aptCount={Setting.APT_COUNT}
-      offers={offers}
-      review={reviews}
-    />
+    <Provider store={store}>
+      <App 
+        offerCount={Setting.OFFER_COUNT}
+        offers={offers}
+        review={reviews}
+      />
+    </Provider>
+
+
   </React.StrictMode>,
   document.getElementById('root'),
 );
