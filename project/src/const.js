@@ -27,6 +27,8 @@ const OfferType = {
   HOTEL: 'Hotel',
 };
 
+const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
 const getFavoritesItems = function (offers) {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   return favoriteOffers;
