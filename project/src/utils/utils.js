@@ -4,4 +4,8 @@ const getRandomIntInclusive = function (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
 };
 
-export {getRandomIntInclusive};
+const getFilteredOffers = function (offers, city) {
+  offers.filter((offer) => {offer.city.cityName == city})
+};
+
+export {getRandomIntInclusive, getFilteredOffers};

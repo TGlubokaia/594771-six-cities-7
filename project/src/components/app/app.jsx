@@ -8,7 +8,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropTypes from 'prop-types';
 import {AppRoute, getFavoritesItems } from '../../const';
 import offerProp from '../../common/prop-types/offer.prop';
-import reviewProp from '../../common/prop-types/reviews.prop';
+import reviewProp from '../../common/prop-types/review.prop';
 
 
 function App(props) {
@@ -49,6 +49,7 @@ function App(props) {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(offerProp),
+  reviews: PropTypes.arrayOf(reviewProp),
 };
 
 export default App;

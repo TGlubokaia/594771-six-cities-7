@@ -69,4 +69,4 @@ const getNearestOffers = function (points, offers) {
 };
 
 
-export { city, AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, MainScreenClasses, RoomScreenClasses, getNearestPoints, getNearestOffers };
+export { city, AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, MainScreenClasses, RoomScreenClasses, getNearestPoints, getNearestOffers, cities };

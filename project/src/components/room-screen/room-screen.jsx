@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import offerProp from '../../common/prop-types/offer.prop';
-import reviewProp from '../../common/prop-types/reviews.prop';
+import reviewProp from '../../common/prop-types/review.prop';
 import { Fragment } from 'react';
 import Logo from '../logo/logo';
 import RoomReviewsList from '../room-reviews-list/room-reviews-list';

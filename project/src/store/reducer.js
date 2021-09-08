@@ -3,8 +3,9 @@ import { ActionType } from "./action";
 const DEFAULT_CITY = 'AMSTERDAM';
 
 const initialState = {
-  city: DEFAULT_CITY,
+  selectedCity: DEFAULT_CITY,
   offers: [],
+  offerOnFocus: {},
 };
 
 const reducer = (state = initialState, action) => {
@@ -12,7 +13,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_CITY:
       return {
         ...state,
-        city: action.payload,
+        selectedCity: action.payload,
       };
     case ActionType.FILL_OFFERS_LIST:
       return {

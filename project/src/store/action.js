@@ -1,5 +1,3 @@
-import offers from "../mocks/offers";
-
 const ActionType = {
   CHANGE_CITY: 'main/changeCities',
   FILTER_OFFERS_LIST: 'offers/fillterOffersList',
@@ -10,7 +8,7 @@ const ActionCreator = {
     type: ActionType.CHANGE_CITY,
     payload: city,
   }),
-  filterOffers: () => ({
+  filterOffers: (offers) => ({
     type: ActionType.FILTER_OFFERS_LIST,
     payload: offers,
   })

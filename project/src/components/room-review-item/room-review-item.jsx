@@ -1,5 +1,5 @@
 import React from 'react';
-import reviewProp from '../../common/prop-types/reviews.prop.js';
+import reviewProp from '../../common/prop-types/review.prop.js';
 import {getRating} from '../../const.js';
 
 function RoomReviewItem(props) {
