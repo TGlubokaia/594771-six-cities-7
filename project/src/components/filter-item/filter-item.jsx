@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {ActionCreator} from '../../store/action'
 
@@ -16,7 +17,11 @@ function FilterItem(props) {
   )
 };
 
-// валидация пропсов
+FilterItem.PropTypes = {
+  city: PropTypes.string.isRequired,
+  selectedCity: PropTypes.string.isRequired,
+  onFilterItem: PropTypes.func.isRequired,
+}
 
 const mapStateToProps = (state) => ({
   selectedCity: state.selectedCity,

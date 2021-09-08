@@ -14,4 +14,4 @@ const ActionCreator = {
   })
 }
 
-export default {ActionType, ActionCreator};
+export {ActionType, ActionCreator};

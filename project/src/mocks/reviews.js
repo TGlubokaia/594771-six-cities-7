@@ -1,4 +1,4 @@
-import {getRandomIntInclusive} from '../utils.js';
+import {getRandomIntInclusive} from '../utils/utils';
 import { nanoid } from 'nanoid';
 
 const AVATAR_URL = 'https://i.pravatar.cc/128';
