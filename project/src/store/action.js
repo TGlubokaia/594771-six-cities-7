@@ -1,3 +1,5 @@
+import { getFilteredOffers } from "../utils/utils";
+
 const ActionType = {
   CHANGE_CITY: 'main/changeCities',
   FILTER_OFFERS_LIST: 'offers/fillterOffersList',

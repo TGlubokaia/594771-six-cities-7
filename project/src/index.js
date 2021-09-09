@@ -21,9 +21,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <App 
-        offerCount={Setting.OFFER_COUNT}
+        // offerCount={Setting.OFFER_COUNT}
         offers={offers}
-        review={reviews}
+        reviews={reviews}
       />
     </Provider>
 

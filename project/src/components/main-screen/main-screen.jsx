@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import Logo from '../logo/logo';
 import {city, MainScreenClasses} from '../../const';
 import FiltersList from '../filter-list/filters-list';
-import offerProp from '../../common/prop-types/offer.prop';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 import Map from '../map/map';
 import pointProp from '../../common/prop-types/point.prop';
 
 function MainScreen(props) {
-  const {offers, points} = props;
+  const {points} = props;
 
   return (
     <React.Fragment>
@@ -68,7 +67,7 @@ function MainScreen(props) {
                     <li className="places__option" tabIndex="0">Top rated first</li>
                   </ul>
                 </form>
-                <OfferItemsList offers={offers} classes={MainScreenClasses}/>
+                <OfferItemsList classes={MainScreenClasses}/>
               </section>
               <div className="cities__right-section">
                 <Map city={city} points={points}/>
@@ -82,8 +81,12 @@ function MainScreen(props) {
 }
 
 MainScreen.propTypes = {
-  offers: PropTypes.arrayOf(offerProp),
   points: PropTypes.arrayOf(pointProp),
 };
 
+// const mapStateToProps = (state) => ({
+
+// })
+
 export default MainScreen;
+// export default connect(mapStateToProps, null)(MainScreen);

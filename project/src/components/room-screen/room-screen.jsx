@@ -19,12 +19,14 @@ function RoomScreen(props) {
   const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images, location } = offerItem;
 
 
+
   const nearestPoints = getNearestPoints(points);
   const allPoints = [...nearestPoints];
   allPoints.push(location);
 
   const nearestOffers = getNearestOffers(nearestPoints, offers);
-
+  console.log(reviews);
+  
   return (
     <Fragment>
       <div style={{ display: 'none' }}>

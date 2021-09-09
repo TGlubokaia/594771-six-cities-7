@@ -5,7 +5,8 @@ const getRandomIntInclusive = function (min, max) {
 };
 
 const getFilteredOffers = function (offers, city) {
-  offers.filter((offer) => {offer.city.cityName == city})
+  const filteredOffers = offers.filter((offer) => offer.city.cityName === city);
+  return filteredOffers;
 };
 
 export {getRandomIntInclusive, getFilteredOffers};

@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {ActionCreator} from '../../store/action'
+import {ActionCreator} from '../../store/action';
 
 function FilterItem(props) {
   const { city, selectedCity, onFilterItem } = props;
 
   return (
     <li className="locations__item"
-      onClick={onFilterItem}
+      onClick={() => onFilterItem(city)}
     >
       <a className={`locations__item-link tabs__item ${city === selectedCity && 'tabs__item--active'}`} href="#">
         <span>{city}</span>
@@ -17,7 +17,7 @@ function FilterItem(props) {
   )
 };
 
-FilterItem.PropTypes = {
+FilterItem.propTypes = {
   city: PropTypes.string.isRequired,
   selectedCity: PropTypes.string.isRequired,
   onFilterItem: PropTypes.func.isRequired,
@@ -28,7 +28,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onFilterItem() {
+  onFilterItem(city) {
     dispatch(ActionCreator.changeCity(city));
   }
 })
