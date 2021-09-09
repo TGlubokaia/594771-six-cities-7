@@ -19,10 +19,7 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <MainScreen
-            offers={offers}
-            points={points}
-          />
+          <MainScreen />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
           <FavoritesScreen

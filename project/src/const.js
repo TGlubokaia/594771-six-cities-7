@@ -27,7 +27,58 @@ const OfferType = {
   HOTEL: 'Hotel',
 };
 
-const cities = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+const cities = [
+  {
+    location: {
+      latitude: 48.864716,
+      longitude: 2.349014,
+      zoom: 10,
+    },
+    cityName: 'Paris',
+  },
+  {
+    location: {
+      latitude: 50.936389,
+      longitude: 6.952778,
+      zoom: 10,
+    },
+    cityName: 'Cologne',
+  },
+  {
+    location: {
+      latitude: 50.8398,
+      longitude: 4.3526,
+    },
+    cityName: 'Brussels',
+  },
+  {
+
+    location: {
+      latitude: 52.38333,
+      longitude: 4.9,
+      zoom: 10,
+    },
+    cityName: 'Amsterdam',
+  },
+  {
+
+    location: {
+      latitude: 53.5436,
+      longitude: 10,
+      zoom: 10,
+    },
+    cityName: 'Hamburg',
+  },
+  {
+
+    location: {
+      latitude: 51.2243,
+      longitude: 6.7724,
+      zoom: 10,
+    },
+    cityName: 'Dusseldorf',
+  },
+];
 
 const getFavoritesItems = function (offers) {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);

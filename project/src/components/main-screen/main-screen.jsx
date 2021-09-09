@@ -1,14 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Logo from '../logo/logo';
-import {city, MainScreenClasses} from '../../const';
+import {MainScreenClasses} from '../../const';
 import FiltersList from '../filter-list/filters-list';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 import Map from '../map/map';
-import pointProp from '../../common/prop-types/point.prop';
+import offerProp from '../../common/prop-types/offer.prop';
 
 function MainScreen(props) {
-  const {points} = props;
+  const {renderedOffers} = props;
+  const points = renderedOffers.map((offer) => offer.location);
+  const city = renderedOffers[0].city;
 
   return (
     <React.Fragment>
@@ -51,7 +54,7 @@ function MainScreen(props) {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">312 places to stay in Amsterdam</b>
+                <b className="places__found">{renderedOffers.length} places to stay in Amsterdam</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex="0">
@@ -81,12 +84,12 @@ function MainScreen(props) {
 }
 
 MainScreen.propTypes = {
-  points: PropTypes.arrayOf(pointProp),
+  renderedOffers: PropTypes.arrayOf(offerProp),
 };
 
-// const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({
+  renderedOffers: state.renderedOffers,
+})
 
-// })
-
-export default MainScreen;
-// export default connect(mapStateToProps, null)(MainScreen);
+export {MainScreen};
+export default connect(mapStateToProps, null)(MainScreen);
