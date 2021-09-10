@@ -275,6 +275,44 @@ const offers = [
     isPremium: true,
     isFavorite: false,
   },
+  {
+    id: nanoid(),
+    type: 'Hotel',
+    city: {
+      location: {
+        latitude: 48.864716,
+        longitude: 2.349014,
+        zoom: 10,
+      },
+      cityName: 'Brussels',
+    },
+    goods: ['Heating', 'Kitchen', 'Coffee machine', 'Dishwasher'],
+    bedrooms: 3,
+    maxAdults: 4,
+    title: 'Beautiful luxurious apartment at great location',
+    desc: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century. An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
+    price: 100,
+    previewImage: 'img/offer-1-3.jpg',
+    images: ['img/offer-1-1.jpg', 'img/offer-1-2.jpg', 'img/offer-1-3.jpg', 'img/offer-1-4.jpg', 'img/offer-1-5.jpg', 'img/offer-1-6.jpg'],
+    rating: 4.7,
+    host: {
+      hostAvatar: `${AVATAR_URL}?rnd=${Math.random()}`,
+      id: 1,
+      hostName: 'Angelina',
+      isPro: true,
+    },
+    location: {
+      latitude: 50.848250,
+      longitude: 4.359022,
+      zoom: 8,
+    },
+    isPremium: true,
+    isFavorite: false,
+  },
 ];
+
+
+
+
 
 export default offers;

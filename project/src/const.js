@@ -91,7 +91,7 @@ const getRating = function (count) {
 };
 
 const getPluralDesc = function (count) {
-  return count > 1 ? 's' : '';
+  return count > 1 || count === 0 ? 's' : '';
 };
 
 const city = {

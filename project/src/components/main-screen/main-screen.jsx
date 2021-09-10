@@ -7,11 +7,14 @@ import FiltersList from '../filter-list/filters-list';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 import Map from '../map/map';
 import offerProp from '../../common/prop-types/offer.prop';
+import { cities, getPluralDesc  } from '../../const';
+
 
 function MainScreen(props) {
-  const {renderedOffers} = props;
+  const {renderedOffers, selectedCity} = props;
+
   const points = renderedOffers.map((offer) => offer.location);
-  const city = renderedOffers[0].city;
+  const city = cities.find((city) => city.cityName === selectedCity);
 
   return (
     <React.Fragment>
@@ -54,7 +57,7 @@ function MainScreen(props) {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{renderedOffers.length} places to stay in Amsterdam</b>
+                <b className="places__found">{renderedOffers.length} place{getPluralDesc(renderedOffers.length)} to stay in Amsterdam</b>
                 <form className="places__sorting" action="#" method="get">
                   <span className="places__sorting-caption">Sort by</span>
                   <span className="places__sorting-type" tabIndex="0">
@@ -85,10 +88,12 @@ function MainScreen(props) {
 
 MainScreen.propTypes = {
   renderedOffers: PropTypes.arrayOf(offerProp),
+  selectedCity: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   renderedOffers: state.renderedOffers,
+  selectedCity: state.selectedCity,
 })
 
 export {MainScreen};

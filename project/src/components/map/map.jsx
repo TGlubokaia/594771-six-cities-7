@@ -15,20 +15,22 @@ const iconDesign = leaflet.icon({
 function Map(props) {
   const { city, points } = props;
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const [map, markers] = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
+      markers.clearLayers();
+      map.flyTo([city.location.latitude, city.location.longitude], city.location.zoom);
       points.forEach((point) => {
         leaflet
           .marker({
             lat: point.latitude,
             lng: point.longitude,
           }, { icon: iconDesign })
-          .addTo(map);
+          .addTo(markers);
       });
     }
-  }, [map]);
+  }, [map, city, markers, points]);
 
   return (
     <section

@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css';
 
 function useMap(mapRef, city) {
   const [map, setMap] = useState(null);
+  const [markers, setMarkers] = useState(null);
 
   useEffect(() => {
     if (mapRef.current !== null && map === null) {
@@ -23,12 +24,12 @@ function useMap(mapRef, city) {
           },
         )
         .addTo(instance);
-
       setMap(instance);
+      setMarkers(leaflet.layerGroup().addTo(instance));
     }
   }, [mapRef, map, city]);
 
-  return map;
+  return [map, markers];
 }
 
 
