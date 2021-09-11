@@ -13,7 +13,6 @@ import reviewProp from '../../common/prop-types/review.prop';
 
 function App(props) {
   const {offers, reviews} = props;
-  const points = offers.map((offer) => offer.location);
 
   return(
     <BrowserRouter>
@@ -30,7 +29,6 @@ function App(props) {
           <RoomScreen
             offers={offers}
             reviews={reviews}
-            points={points}
           />
         </Route>
         <Route exact path={AppRoute.LOGIN}>

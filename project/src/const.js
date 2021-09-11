@@ -105,19 +105,16 @@ const city = {
 
 const getNearestPoints = function (points) {
   const allNearestPoints = [];
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 2; i++) {
     allNearestPoints.push(points[i]);
   }
   return allNearestPoints;
 };
 
-const getNearestOffers = function (points, offers) {
-  let nearestOffers = [];
-  for (let point of points) {
-    nearestOffers.push(offers.find((offer) => offer.location === point));
-  }
-  return nearestOffers;
-};
+const getCityData = function (selectedCity) {
+  const cityData = cities.find((city) => city.cityName === selectedCity);
+  return cityData;
+}
 
 
-export { city, AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, MainScreenClasses, RoomScreenClasses, getNearestPoints, getNearestOffers, cities };
+export { city, AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, MainScreenClasses, RoomScreenClasses, getNearestPoints, getCityData, cities };

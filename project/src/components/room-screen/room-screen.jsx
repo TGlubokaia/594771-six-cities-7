@@ -4,29 +4,27 @@ import { useParams } from 'react-router-dom';
 import offerProp from '../../common/prop-types/offer.prop';
 import reviewProp from '../../common/prop-types/review.prop';
 import { Fragment } from 'react';
+import { connect } from 'react-redux';
 import Logo from '../logo/logo';
 import RoomReviewsList from '../room-reviews-list/room-reviews-list';
 import RoomCommentForm from '../room-comment-form/room-comment-form';
-import { getRating, getPluralDesc, city, RoomScreenClasses, getNearestPoints, getNearestOffers } from '../../const';
+import { getRating, getPluralDesc, RoomScreenClasses, getNearestPoints, getCityData} from '../../const';
 import Map from '../map/map';
-import pointProp from '../../common/prop-types/point.prop';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 
 function RoomScreen(props) {
-  const { offers, reviews, points } = props;
+  const { renderedOffers, reviews, offers, selectedCity } = props;
   const params = useParams();
-  const offerItem = offers.find((offer) => offer.id === params.id);
+  const offerItem = renderedOffers.find((offer) => offer.id === params.id);
   const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images, location } = offerItem;
+  const city = getCityData(selectedCity);
 
 
-
-  const nearestPoints = getNearestPoints(points);
-  const allPoints = [...nearestPoints];
+  
+  const nearestPoints = getNearestPoints(renderedOffers);
+  const allPoints = [...nearestPoints].map((point) => point.location);;
   allPoints.push(location);
 
-  const nearestOffers = getNearestOffers(nearestPoints, offers);
-  console.log(reviews);
-  
   return (
     <Fragment>
       <div style={{ display: 'none' }}>
@@ -164,7 +162,7 @@ function RoomScreen(props) {
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <OfferItemsList offers={nearestOffers} classes={RoomScreenClasses}/>
+              <OfferItemsList offers={nearestPoints} classes={RoomScreenClasses}/>
             </section>
           </div>
         </main>
@@ -175,8 +173,16 @@ function RoomScreen(props) {
 
 RoomScreen.propTypes = {
   offers: PropTypes.arrayOf(offerProp),
+  renderedOffers: PropTypes.arrayOf(offerProp),
   reviews: PropTypes.arrayOf(reviewProp),
-  points: PropTypes.arrayOf(pointProp),
+  selectedCity: PropTypes.string.isRequired,
 };
 
-export default RoomScreen;
+const mapStateToProps = (state) => ({
+  renderedOffers: state.renderedOffers,
+  selectedCity: state.selectedCity,
+})
+
+
+export {RoomScreen};
+export default connect(mapStateToProps, null)(RoomScreen);

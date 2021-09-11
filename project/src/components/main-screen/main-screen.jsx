@@ -7,14 +7,14 @@ import FiltersList from '../filter-list/filters-list';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 import Map from '../map/map';
 import offerProp from '../../common/prop-types/offer.prop';
-import { cities, getPluralDesc  } from '../../const';
+import { getCityData, getPluralDesc  } from '../../const';
 
 
 function MainScreen(props) {
   const {renderedOffers, selectedCity} = props;
 
   const points = renderedOffers.map((offer) => offer.location);
-  const city = cities.find((city) => city.cityName === selectedCity);
+  const city = getCityData(selectedCity);
 
   return (
     <React.Fragment>
@@ -73,7 +73,7 @@ function MainScreen(props) {
                     <li className="places__option" tabIndex="0">Top rated first</li>
                   </ul>
                 </form>
-                <OfferItemsList classes={MainScreenClasses}/>
+                <OfferItemsList offers={renderedOffers} classes={MainScreenClasses}/>
               </section>
               <div className="cities__right-section">
                 <Map city={city} points={points}/>
