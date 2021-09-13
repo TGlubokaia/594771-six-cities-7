@@ -1,7 +1,7 @@
 import {ActionType} from './action';
 import offers from '../mocks/offers';
 import { getFilteredOffers } from '../utils/filter';
-// import { getSortedOffers } from '../utils/sort';
+import { getSortedOffers } from '../utils/sort';
 import { sortTypeNames } from '../const';
 
 const DEFAULT_CITY = 'Paris';
@@ -13,10 +13,14 @@ const initialState = {
   renderedOffers: DEFAULT_OFFERS,
   offerOnFocus: {},
   sortType: DEFAULT_SORT_TYPE,
+  initialOffers: [],
 };
 
 const reducer = (state = initialState, action) => {
+console.log(state, action);
+
 const filteredOffers = getFilteredOffers(offers, action.payload);
+const sortedOffers = getSortedOffers(state.initialOffers, state.renderedOffers, action.payload)
 
   switch (action.type) {
     case ActionType.CHANGE_CITY:
@@ -24,13 +28,13 @@ const filteredOffers = getFilteredOffers(offers, action.payload);
         ...state,
         selectedCity: action.payload,
         renderedOffers: filteredOffers,
+        initialOffers: filteredOffers,
       };
     case ActionType.SORT_OFFERS_LIST:
       return {
         ...state,
         sortType: action.payload,
-        // renderedOffers: getSortedOffers(renderedOffers, action.payload),
-        renderedOffers: offers,
+        renderedOffers: sortedOffers,
       };
     default:
       return state;

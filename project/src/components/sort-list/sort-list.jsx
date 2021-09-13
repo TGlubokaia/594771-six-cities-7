@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { sortTypeNames } from '../../const';
-import { SortItem } from '../sort-item/sort-item';
+import SortItem from '../sort-item/sort-item';
 
 function SortList(props) {
   const { sortType } = props;
@@ -29,7 +29,7 @@ function SortList(props) {
   )
 };
 
-SortItem.propTypes = {
+SortList.propTypes = {
   sortType: PropTypes.string.isRequired,
 };
 

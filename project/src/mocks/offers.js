@@ -19,10 +19,10 @@ const offers = [
     maxAdults: 4,
     title: 'Beautiful luxurious apartment at great location',
     desc: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century. An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
-    price: 100,
+    price: 95,
     previewImage: 'img/offer-1-1.jpg',
     images: ['img/offer-1-1.jpg', 'img/offer-1-2.jpg', 'img/offer-1-3.jpg', 'img/offer-1-4.jpg', 'img/offer-1-5.jpg', 'img/offer-1-6.jpg'],
-    rating: 4.7,
+    rating: 4.5,
     host: {
       hostAvatar: `${AVATAR_URL}?rnd=${Math.random()}`,
       id: 1,
@@ -155,10 +155,10 @@ const offers = [
     maxAdults: 4,
     title: 'Beautiful luxurious apartment at great location',
     desc: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century. An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
-    price: 100,
+    price: 30,
     previewImage: 'img/offer-1-1.jpg',
     images: ['img/offer-1-1.jpg', 'img/offer-1-2.jpg', 'img/offer-1-3.jpg', 'img/offer-1-4.jpg', 'img/offer-1-5.jpg', 'img/offer-1-6.jpg'],
-    rating: 4.7,
+    rating: 1.7,
     host: {
       hostAvatar: `${AVATAR_URL}?rnd=${Math.random()}`,
       id: 1,
@@ -189,10 +189,10 @@ const offers = [
     maxAdults: 4,
     title: 'Beautiful luxurious apartment at great location',
     desc: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century. An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
-    price: 100,
+    price: 115,
     previewImage: 'img/offer-1-3.jpg',
     images: ['img/offer-1-1.jpg', 'img/offer-1-2.jpg', 'img/offer-1-3.jpg', 'img/offer-1-4.jpg', 'img/offer-1-5.jpg', 'img/offer-1-6.jpg'],
-    rating: 4.7,
+    rating: 2.7,
     host: {
       hostAvatar: `${AVATAR_URL}?rnd=${Math.random()}`,
       id: 1,
@@ -223,10 +223,10 @@ const offers = [
     maxAdults: 4,
     title: 'Beautiful luxurious apartment at great location',
     desc: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century. An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
-    price: 100,
+    price: 57,
     previewImage: 'img/offer-1-1.jpg',
     images: ['img/offer-1-1.jpg', 'img/offer-1-2.jpg', 'img/offer-1-3.jpg', 'img/offer-1-4.jpg', 'img/offer-1-5.jpg', 'img/offer-1-6.jpg'],
-    rating: 4.7,
+    rating: 3.3,
     host: {
       hostAvatar: `${AVATAR_URL}?rnd=${Math.random()}`,
       id: 1,
@@ -257,10 +257,10 @@ const offers = [
     maxAdults: 4,
     title: 'Beautiful luxurious apartment at great location',
     desc: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century. An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
-    price: 100,
+    price: 49,
     previewImage: 'img/offer-1-3.jpg',
     images: ['img/offer-1-1.jpg', 'img/offer-1-2.jpg', 'img/offer-1-3.jpg', 'img/offer-1-4.jpg', 'img/offer-1-5.jpg', 'img/offer-1-6.jpg'],
-    rating: 4.7,
+    rating: 3.7,
     host: {
       hostAvatar: `${AVATAR_URL}?rnd=${Math.random()}`,
       id: 1,
@@ -291,7 +291,7 @@ const offers = [
     maxAdults: 4,
     title: 'Beautiful luxurious apartment at great location',
     desc: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century. An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.',
-    price: 100,
+    price: 63,
     previewImage: 'img/offer-1-3.jpg',
     images: ['img/offer-1-1.jpg', 'img/offer-1-2.jpg', 'img/offer-1-3.jpg', 'img/offer-1-4.jpg', 'img/offer-1-5.jpg', 'img/offer-1-6.jpg'],
     rating: 4.7,
@@ -310,9 +310,5 @@ const offers = [
     isFavorite: false,
   },
 ];
-
-
-
-
 
 export default offers;

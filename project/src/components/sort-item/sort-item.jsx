@@ -5,7 +5,6 @@ import {ActionCreator} from '../../store/action';
 
 function SortItem (props) {
   const {type, sortType, onSortItem} = props;
-  console.log( onSortItem, type, sortType );
 
   return (
     <li className={`places__option ${sortType === type &&'places__option--active'}`} tabIndex="0"
