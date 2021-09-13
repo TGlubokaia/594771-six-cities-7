@@ -80,6 +80,13 @@ const cities = [
   },
 ];
 
+const sortTypeNames = {
+  DEFAULT: 'Popular',
+  PRICE_LOW_TO_HIGH: 'Price: low to high',
+  PRICE_HIGH_TO_LOW: 'Price: high to low',
+  TOP_RATED: 'Top rated first',
+}
+
 const getFavoritesItems = function (offers) {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   return favoriteOffers;
@@ -117,4 +124,4 @@ const getCityData = function (selectedCity) {
 }
 
 
-export { city, AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, MainScreenClasses, RoomScreenClasses, getNearestPoints, getCityData, cities };
+export { city, AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, sortTypeNames, MainScreenClasses, RoomScreenClasses, getNearestPoints, getCityData, cities };

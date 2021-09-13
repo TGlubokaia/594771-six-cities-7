@@ -1,8 +1,8 @@
-import { getFilteredOffers } from "../utils/utils";
+import { getFilteredOffers } from "../utils/filter";
 
 const ActionType = {
   CHANGE_CITY: 'main/changeCities',
-  FILTER_OFFERS_LIST: 'offers/fillterOffersList',
+  SORT_OFFERS_LIST: 'offers/sortOffersList',
 };
 
 const ActionCreator = {
@@ -10,9 +10,9 @@ const ActionCreator = {
     type: ActionType.CHANGE_CITY,
     payload: city,
   }),
-  filterOffers: (offers) => ({
-    type: ActionType.FILTER_OFFERS_LIST,
-    payload: offers,
+  sortOffers: (type) => ({
+    type: ActionType.SORT_OFFERS_LIST,
+    payload: type,
   })
 }
 
