@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Logo from '../logo/logo';
@@ -7,12 +7,17 @@ import FiltersList from '../filter-list/filters-list';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 import Map from '../map/map';
 import offerProp from '../../common/prop-types/offer.prop';
+import pointProp from '../../common/prop-types/point.prop';
 import { getCityData, getPluralDesc  } from '../../const';
-import { SortList } from '../sort-list/sort-list';
+import SortList from '../sort-list/sort-list';
+import {ActionCreator} from '../../store/action';
 
 
 function MainScreen(props) {
   const {renderedOffers, selectedCity} = props;
+
+  const [activeOffer, setActiveOffer] = useState(null);
+  const onActiveOffer = (offer) => setActiveOffer(offer.location);
 
   const points = renderedOffers.map((offer) => offer.location);
   const city = getCityData(selectedCity);
@@ -60,10 +65,10 @@ function MainScreen(props) {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{renderedOffers.length} place{getPluralDesc(renderedOffers.length)} to stay in Amsterdam</b>
                 <SortList />
-                <OfferItemsList offers={renderedOffers} classes={MainScreenClasses}/>
+                <OfferItemsList offers={renderedOffers} classes={MainScreenClasses} onActiveOffer={onActiveOffer}/>
               </section>
               <div className="cities__right-section">
-                <Map city={city} points={points}/>
+                <Map city={city} points={points} pointOnFocus={activeOffer}/>
               </div>
             </div>
           </div>
@@ -76,6 +81,7 @@ function MainScreen(props) {
 MainScreen.propTypes = {
   renderedOffers: PropTypes.arrayOf(offerProp),
   selectedCity: PropTypes.string.isRequired,
+  onOfferFocus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

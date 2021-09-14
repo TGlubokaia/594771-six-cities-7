@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import offerProp from '../../common/prop-types/offer.prop';
 import reviewProp from '../../common/prop-types/review.prop';
+import pointProp from '../../common/prop-types/point.prop';
 import { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Logo from '../logo/logo';
@@ -13,7 +14,7 @@ import Map from '../map/map';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 
 function RoomScreen(props) {
-  const { renderedOffers, reviews, offers, selectedCity } = props;
+  const { renderedOffers, reviews, selectedCity } = props;
   const params = useParams();
   const offerItem = renderedOffers.find((offer) => offer.id === params.id);
   const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images, location } = offerItem;
@@ -156,7 +157,7 @@ function RoomScreen(props) {
               </div>
             </div>
             <section className="property__map map">
-              <Map city={city} points={allPoints} />
+              <Map city={city} points={allPoints} pointOnFocus={location}/>
             </section>
           </section>
           <div className="container">
@@ -172,7 +173,6 @@ function RoomScreen(props) {
 }
 
 RoomScreen.propTypes = {
-  offers: PropTypes.arrayOf(offerProp),
   renderedOffers: PropTypes.arrayOf(offerProp),
   reviews: PropTypes.arrayOf(reviewProp),
   selectedCity: PropTypes.string.isRequired,
@@ -181,8 +181,7 @@ RoomScreen.propTypes = {
 const mapStateToProps = (state) => ({
   renderedOffers: state.renderedOffers,
   selectedCity: state.selectedCity,
-})
-
+});
 
 export {RoomScreen};
-export default connect(mapStateToProps, null)(RoomScreen);
+export default connect(mapStateToProps)(RoomScreen);

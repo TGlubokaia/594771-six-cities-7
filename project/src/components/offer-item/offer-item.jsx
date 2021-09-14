@@ -6,12 +6,16 @@ import offerProp from '../../common/prop-types/offer.prop';
 import classesProp from '../../common/prop-types/classes.prop';
 
 function OfferItem(props) {
-  const { offer, onOfferFocus, classes } = props;
+  const { offer, classes, onActiveOffer } = props;
   const { type, price, title, rating, previewImage, isPremium, isFavorite } = offer;
+
+  const handleAcctiveOfferChange = () => {
+    onActiveOffer(offer);
+  }
 
   return (
     <article className={`${classes.ITEM} place-card`}
-      onFocus={() => onOfferFocus()}
+      onMouseEnter={onActiveOffer ? handleAcctiveOfferChange : undefined}
     >
 
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
@@ -53,7 +57,6 @@ function OfferItem(props) {
 
 OfferItem.propTypes = {
   offer: offerProp,
-  onOfferFocus: PropTypes.func.isRequired,
   classes: classesProp,
 };
 

@@ -6,27 +6,36 @@ import pointProp from '../../common/prop-types/point.prop';
 
 import useMap from '../../hooks/useMap';
 
-const iconDesign = leaflet.icon({
+const defaultIcon = leaflet.icon({
   iconUrl: 'img/pin.svg',
   iconSize: [30, 30],
   iconAnchor: [15, 30],
 });
 
+const focusedIcon = leaflet.icon({
+  iconUrl: 'img/pin-active.svg',
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+});
+
+
 function Map(props) {
-  const { city, points } = props;
+  const { city, points, pointOnFocus } = props;
   const mapRef = useRef(null);
   const [map, markers] = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
       markers.clearLayers();
-      map.flyTo([city.location.latitude, city.location.longitude], city.location.zoom);
+      map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
       points.forEach((point) => {
         leaflet
           .marker({
             lat: point.latitude,
             lng: point.longitude,
-          }, { icon: iconDesign })
+          }, { icon: (point === pointOnFocus)
+            ? focusedIcon
+            : defaultIcon })
           .addTo(markers);
       });
     }
@@ -53,6 +62,7 @@ Map.propTypes = {
     cityName: PropTypes.string.isRequired,
   }),
   points: PropTypes.arrayOf(pointProp),
+  pointOnFocus: pointProp,
 };
 
 export default Map;

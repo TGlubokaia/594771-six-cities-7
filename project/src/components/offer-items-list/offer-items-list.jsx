@@ -6,8 +6,7 @@ import offerProp from '../../common/prop-types/offer.prop';
 import classesProp from '../../common/prop-types/classes.prop';
 
 function OfferItemsList(props) {
-  const { offers, classes} = props;
-  const [offerOnFocus, setOfferOnFocus] = useState('');
+  const { offers, classes, onActiveOffer} = props;
 
   return (
     <div className={`${classes.LIST} places__list ${classes.ADD}`}>
@@ -15,9 +14,7 @@ function OfferItemsList(props) {
         <OfferItem
           key={offer.id}
           offer={offer}
-          onOfferFocus={() => {
-            setOfferOnFocus(offer.id)
-          }}
+          onActiveOffer={onActiveOffer}
           classes={classes}
         />))}
     </div>);
@@ -26,6 +23,7 @@ function OfferItemsList(props) {
 OfferItemsList.propTypes = {
   offers: PropTypes.arrayOf(offerProp),
   classes: classesProp,
+  onActiveOffer: PropTypes.func.isRequired,
 };
 
 export default OfferItemsList;

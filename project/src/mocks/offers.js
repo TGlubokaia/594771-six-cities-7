@@ -132,8 +132,8 @@ const offers = [
       isPro: false,
     },
     location: {
-      latitude: 52.3809553943508,
-      longitude: 4.939309666406198,
+      latitude: 52.364638,
+      longitude: 4.933801,
       zoom: 8,
     },
     isPremium: true,

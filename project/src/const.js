@@ -27,12 +27,14 @@ const OfferType = {
   HOTEL: 'Hotel',
 };
 
+const DEFAULT_ZOOM = 12;
+
 const cities = [
   {
     location: {
       latitude: 48.864716,
       longitude: 2.349014,
-      zoom: 10,
+      zoom: DEFAULT_ZOOM,
     },
     cityName: 'Paris',
   },
@@ -40,7 +42,7 @@ const cities = [
     location: {
       latitude: 50.936389,
       longitude: 6.952778,
-      zoom: 10,
+      zoom: DEFAULT_ZOOM,
     },
     cityName: 'Cologne',
   },
@@ -48,6 +50,7 @@ const cities = [
     location: {
       latitude: 50.8398,
       longitude: 4.3526,
+      zoom: DEFAULT_ZOOM,
     },
     cityName: 'Brussels',
   },
@@ -56,7 +59,7 @@ const cities = [
     location: {
       latitude: 52.38333,
       longitude: 4.9,
-      zoom: 10,
+      zoom: DEFAULT_ZOOM,
     },
     cityName: 'Amsterdam',
   },
@@ -65,7 +68,7 @@ const cities = [
     location: {
       latitude: 53.5436,
       longitude: 10,
-      zoom: 10,
+      zoom: DEFAULT_ZOOM,
     },
     cityName: 'Hamburg',
   },
@@ -74,7 +77,7 @@ const cities = [
     location: {
       latitude: 51.2243,
       longitude: 6.7724,
-      zoom: 10,
+      zoom: DEFAULT_ZOOM,
     },
     cityName: 'Dusseldorf',
   },
@@ -101,15 +104,6 @@ const getPluralDesc = function (count) {
   return count > 1 || count === 0 ? 's' : '';
 };
 
-const city = {
-  location: {
-    latitude: 52.38333,
-    longitude: 4.9,
-    zoom: 12,
-  },
-  cityName: 'Amsterdam',
-};
-
 const getNearestPoints = function (points) {
   const allNearestPoints = [];
   for (let i = 0; i < 2; i++) {
@@ -124,4 +118,4 @@ const getCityData = function (selectedCity) {
 }
 
 
-export { city, AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, sortTypeNames, MainScreenClasses, RoomScreenClasses, getNearestPoints, getCityData, cities };
+export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, sortTypeNames, MainScreenClasses, RoomScreenClasses, getNearestPoints, getCityData, cities };

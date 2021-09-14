@@ -14,6 +14,7 @@ function useMap(mapRef, city) {
         zoom: city.location.zoom,
         zoomControl: false,
         marker: true,
+        scrollWheelZoom: false,
       });
 
       leaflet
@@ -24,6 +25,13 @@ function useMap(mapRef, city) {
           },
         )
         .addTo(instance);
+      
+      leaflet.control.zoom({
+        zoomInText: '+',
+        zoomOutText: '&#x2212',
+        position: 'bottomright'
+      }).addTo(instance);
+      
       setMap(instance);
       setMarkers(leaflet.layerGroup().addTo(instance));
     }

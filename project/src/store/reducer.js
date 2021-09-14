@@ -11,13 +11,12 @@ const DEFAULT_SORT_TYPE = sortTypeNames.DEFAULT;
 const initialState = {
   selectedCity: DEFAULT_CITY,
   renderedOffers: DEFAULT_OFFERS,
-  offerOnFocus: {},
+  pointOnFocus: {},
   sortType: DEFAULT_SORT_TYPE,
   initialOffers: [],
 };
 
 const reducer = (state = initialState, action) => {
-console.log(state, action);
 
 const filteredOffers = getFilteredOffers(offers, action.payload);
 const sortedOffers = getSortedOffers(state.initialOffers, state.renderedOffers, action.payload)
@@ -29,6 +28,7 @@ const sortedOffers = getSortedOffers(state.initialOffers, state.renderedOffers, 
         selectedCity: action.payload,
         renderedOffers: filteredOffers,
         initialOffers: filteredOffers,
+        sortType: initialState.sortType,
       };
     case ActionType.SORT_OFFERS_LIST:
       return {
