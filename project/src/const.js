@@ -18,7 +18,7 @@ const RoomScreenClasses = {
   ITEM: 'near-places__card',
   ADD: '',
   WRAPPER: 'near-places',
-}
+};
 
 const OfferType = {
   APARTMENT: 'Apartment',
@@ -88,13 +88,12 @@ const sortTypeNames = {
   PRICE_LOW_TO_HIGH: 'Price: low to high',
   PRICE_HIGH_TO_LOW: 'Price: high to low',
   TOP_RATED: 'Top rated first',
-}
+};
 
 const getFavoritesItems = function (offers) {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   return favoriteOffers;
 };
-
 
 const getRating = function (count) {
   return Math.round(count) * 20;
@@ -115,7 +114,6 @@ const getNearestPoints = function (points) {
 const getCityData = function (selectedCity) {
   const cityData = cities.find((city) => city.cityName === selectedCity);
   return cityData;
-}
-
+};
 
 export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, sortTypeNames, MainScreenClasses, RoomScreenClasses, getNearestPoints, getCityData, cities };

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import offerProp from '../../common/prop-types/offer.prop';
 import reviewProp from '../../common/prop-types/review.prop';
-import pointProp from '../../common/prop-types/point.prop';
 import { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Logo from '../logo/logo';
@@ -20,10 +19,8 @@ function RoomScreen(props) {
   const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images, location } = offerItem;
   const city = getCityData(selectedCity);
 
-
-  
   const nearestPoints = getNearestPoints(renderedOffers);
-  const allPoints = [...nearestPoints].map((point) => point.location);;
+  const allPoints = [...nearestPoints].map((point) => point.location);
   allPoints.push(location);
 
   return (

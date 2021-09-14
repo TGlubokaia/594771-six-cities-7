@@ -7,10 +7,8 @@ import FiltersList from '../filter-list/filters-list';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 import Map from '../map/map';
 import offerProp from '../../common/prop-types/offer.prop';
-import pointProp from '../../common/prop-types/point.prop';
 import { getCityData, getPluralDesc  } from '../../const';
 import SortList from '../sort-list/sort-list';
-import {ActionCreator} from '../../store/action';
 
 
 function MainScreen(props) {
@@ -81,13 +79,12 @@ function MainScreen(props) {
 MainScreen.propTypes = {
   renderedOffers: PropTypes.arrayOf(offerProp),
   selectedCity: PropTypes.string.isRequired,
-  onOfferFocus: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   renderedOffers: state.renderedOffers,
   selectedCity: state.selectedCity,
-})
+});
 
 export {MainScreen};
 export default connect(mapStateToProps, null)(MainScreen);

@@ -1,4 +1,4 @@
-import {sortTypeNames} from '../const'
+import {sortTypeNames} from '../const';
 
 const getSortedOffers = function (initialOffers, offers, sortType) {
   switch (sortType) {
@@ -14,7 +14,6 @@ const getSortedOffers = function (initialOffers, offers, sortType) {
     default:
       return initialOffers;
   }
-  
 };
 
 export {getSortedOffers};

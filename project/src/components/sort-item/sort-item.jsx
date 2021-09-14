@@ -9,9 +9,10 @@ function SortItem (props) {
   return (
     <li className={`places__option ${sortType === type &&'places__option--active'}`} tabIndex="0"
       onClick={() => onSortItem(type)}
-    >{type}</li>
-  )
-};
+    >{type}
+    </li>
+  );
+}
 
 SortItem.propTypes = {
   type: PropTypes.string.isRequired,
@@ -26,7 +27,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onSortItem(type) {
     dispatch(ActionCreator.sortOffers(type));
-  }
+  },
 });
 
 export {SortItem};

@@ -21,11 +21,10 @@ function SortList(props) {
         {sortTypes.map((type) => (
           <SortItem key={type} type={type} />
         ))}
-
       </ul>
     </form>
-  )
-};
+  );
+}
 
 SortList.propTypes = {
   sortType: PropTypes.string.isRequired,

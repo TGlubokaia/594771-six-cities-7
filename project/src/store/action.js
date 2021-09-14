@@ -1,7 +1,6 @@
 const ActionType = {
   CHANGE_CITY: 'main/changeCities',
   SORT_OFFERS_LIST: 'offers/sortOffersList',
-  FOCUS_OFFER: 'offer/focus'
 };
 
 const ActionCreator = {
@@ -13,6 +12,6 @@ const ActionCreator = {
     type: ActionType.SORT_OFFERS_LIST,
     payload: type,
   }),
-}
+};
 
 export {ActionType, ActionCreator};

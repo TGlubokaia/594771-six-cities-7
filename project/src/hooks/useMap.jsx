@@ -25,13 +25,13 @@ function useMap(mapRef, city) {
           },
         )
         .addTo(instance);
-      
+
       leaflet.control.zoom({
         zoomInText: '+',
         zoomOutText: '&#x2212',
-        position: 'bottomright'
+        position: 'bottomright',
       }).addTo(instance);
-      
+
       setMap(instance);
       setMarkers(leaflet.layerGroup().addTo(instance));
     }
@@ -39,7 +39,6 @@ function useMap(mapRef, city) {
 
   return [map, markers];
 }
-
 
 useMap.propTypes = {
   mapRef: PropTypes.node,

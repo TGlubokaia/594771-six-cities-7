@@ -11,7 +11,7 @@ function OfferItem(props) {
 
   const handleAcctiveOfferChange = () => {
     onActiveOffer(offer);
-  }
+  };
 
   return (
     <article className={`${classes.ITEM} place-card`}
@@ -58,6 +58,7 @@ function OfferItem(props) {
 OfferItem.propTypes = {
   offer: offerProp,
   classes: classesProp,
+  onActiveOffer: PropTypes.func,
 };
 
 export default OfferItem;

@@ -14,24 +14,24 @@ function FilterItem(props) {
         <span>{city}</span>
       </a>
     </li>
-  )
-};
+  );
+}
 
 FilterItem.propTypes = {
   city: PropTypes.string.isRequired,
   selectedCity: PropTypes.string.isRequired,
   onFilterItem: PropTypes.func.isRequired,
-}
+};
 
 const mapStateToProps = (state) => ({
   selectedCity: state.selectedCity,
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onFilterItem(city) {
     dispatch(ActionCreator.changeCity(city));
-  }
-})
+  },
+});
 
 export {FilterItem};
 export default connect(mapStateToProps, mapDispatchToProps)(FilterItem);

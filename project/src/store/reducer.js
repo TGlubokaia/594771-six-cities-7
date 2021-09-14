@@ -1,4 +1,4 @@
-import {ActionType} from './action';
+import { ActionType } from './action';
 import offers from '../mocks/offers';
 import { getFilteredOffers } from '../utils/filter';
 import { getSortedOffers } from '../utils/sort';
@@ -18,8 +18,8 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
 
-const filteredOffers = getFilteredOffers(offers, action.payload);
-const sortedOffers = getSortedOffers(state.initialOffers, state.renderedOffers, action.payload)
+  const filteredOffers = getFilteredOffers(offers, action.payload);
+  const sortedOffers = getSortedOffers(state.initialOffers, state.renderedOffers, action.payload);
 
   switch (action.type) {
     case ActionType.CHANGE_CITY:
@@ -41,4 +41,4 @@ const sortedOffers = getSortedOffers(state.initialOffers, state.renderedOffers, 
   }
 };
 
-export {reducer};
+export { reducer };

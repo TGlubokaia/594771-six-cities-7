@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import OfferItem from '../offer-item/offer-item';
 import offerProp from '../../common/prop-types/offer.prop';
 import classesProp from '../../common/prop-types/classes.prop';
@@ -27,4 +26,3 @@ OfferItemsList.propTypes = {
 };
 
 export default OfferItemsList;
-
