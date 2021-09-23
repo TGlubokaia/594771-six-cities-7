@@ -1,6 +1,6 @@
 import {sortTypeNames} from '../const';
 
-const getSortedOffers = function (initialOffers, offers, sortType) {
+const getSortedOffers = function (offers, sortType) {
   switch (sortType) {
     case sortTypeNames.PRICE_LOW_TO_HIGH:
       return offers.slice().sort((prevOffer, nextOffer) => prevOffer.price - nextOffer.price);
@@ -12,7 +12,7 @@ const getSortedOffers = function (initialOffers, offers, sortType) {
       return offers.slice().sort((prevOffer, nextOffer) => nextOffer.rating - prevOffer.rating);
 
     default:
-      return initialOffers;
+      return offers;
   }
 };
 
