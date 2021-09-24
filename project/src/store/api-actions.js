@@ -1,9 +1,13 @@
 import {ActionCreator} from './action';
 import {AuthorizationStatus, APIRoute} from '../const';
+import {offersAdapter} from '../services/adapter-api';
 
 const fetchOffers = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
-    .then(({data}) => dispatch(ActionCreator.loadOffers(data)))
+    .then(({data}) => {
+      const adaptedData = offersAdapter(data);
+      dispatch(ActionCreator.loadOffers(adaptedData));
+    })
 );
 
 const checkAuth = () => (dispatch, _getState, api) => (

@@ -1,23 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import {MainScreenClasses, sortTypeNames, getCityData, getPluralDesc } from '../../const';
+import {getFilteredOffers} from '../../utils/filter';
+import {getSortedOffers} from '../../utils/sort';
 import Logo from '../logo/logo';
-import {MainScreenClasses} from '../../const';
 import FiltersList from '../filter-list/filters-list';
 import OfferItemsList from '../offer-items-list/offer-items-list';
+import SortList from '../sort-list/sort-list';
 import Map from '../map/map';
 import offerProp from '../../common/prop-types/offer.prop';
-import { getCityData, getPluralDesc  } from '../../const';
-import SortList from '../sort-list/sort-list';
 
 
+const DEFAULT_SORT_TYPE = sortTypeNames.DEFAULT;
 function MainScreen(props) {
-  const {renderedOffers, selectedCity} = props;
+  const {initialOffers, selectedCity} = props;
+
+  const filteredOffers = getFilteredOffers(initialOffers, selectedCity);
 
   const [activeOffer, setActiveOffer] = useState(null);
-  const onActiveOffer = (offer) => setActiveOffer(offer.location);
+  const [offers, setOffers] = useState(filteredOffers);
+  const [sortType, setSortType] = useState(DEFAULT_SORT_TYPE);
 
-  const points = renderedOffers.map((offer) => offer.location);
+  const onActiveOffer = (offer) => setActiveOffer(offer.location);
+  const onActiveSortType = (sort) => {
+    setSortType(sort);
+  };
+
+  useEffect(() => {
+    const sortedOffers = getSortedOffers(filteredOffers, offers, sortType);
+    setOffers(sortedOffers);
+  }, [sortType, selectedCity]);
+
+  const points = offers.map((offer) => offer.location);
   const city = getCityData(selectedCity);
 
   return (
@@ -61,9 +76,9 @@ function MainScreen(props) {
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{renderedOffers.length} place{getPluralDesc(renderedOffers.length)} to stay in Amsterdam</b>
-                <SortList />
-                <OfferItemsList offers={renderedOffers} classes={MainScreenClasses} onActiveOffer={onActiveOffer}/>
+                <b className="places__found">{offers.length} place{getPluralDesc(offers.length)} to stay in {selectedCity}</b>
+                <SortList onSortType={onActiveSortType} sortType={sortType}/>
+                <OfferItemsList offers={offers} classes={MainScreenClasses} onActiveOffer={onActiveOffer}/>
               </section>
               <div className="cities__right-section">
                 <Map city={city} points={points} pointOnFocus={activeOffer}/>
@@ -77,12 +92,12 @@ function MainScreen(props) {
 }
 
 MainScreen.propTypes = {
-  renderedOffers: PropTypes.arrayOf(offerProp),
+  initialOffers: PropTypes.arrayOf(offerProp),
   selectedCity: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  renderedOffers: state.renderedOffers,
+  initialOffers: state.initialOffers,
   selectedCity: state.selectedCity,
 });
 

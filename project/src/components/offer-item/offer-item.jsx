@@ -9,6 +9,8 @@ function OfferItem(props) {
   const { offer, classes, onActiveOffer } = props;
   const { type, price, title, rating, previewImage, isPremium, isFavorite } = offer;
 
+  console.log(offer);
+
   const handleAcctiveOfferChange = () => {
     onActiveOffer(offer);
   };

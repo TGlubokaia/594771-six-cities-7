@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import { sortTypeNames } from '../../const';
-import SortItem from '../sort-item/sort-item';
+// import SortItem from '../sort-item/sort-item';
 
 function SortList(props) {
-  const { sortType } = props;
+  const { onSortType, sortType } = props;
   const sortTypes = Object.values(sortTypeNames);
 
   return (
@@ -19,7 +19,10 @@ function SortList(props) {
       </span>
       <ul className="places__options places__options--custom places__options--opened">
         {sortTypes.map((type) => (
-          <SortItem key={type} type={type} />
+          <li className={`places__option ${sortType === type && 'places__option--active'}`} tabIndex="0"
+            onClick={() => onSortType(type)} key={type}
+          >{type}
+          </li>
         ))}
       </ul>
     </form>
@@ -28,11 +31,12 @@ function SortList(props) {
 
 SortList.propTypes = {
   sortType: PropTypes.string.isRequired,
+  onSortType: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  sortType: state.sortType,
-});
+// const mapStateToProps = (state) => ({
+//   sortType: state.sortType,
+// });
 
-export { SortList };
-export default connect(mapStateToProps, null)(SortList);
+export default SortList;
+// export default connect(mapStateToProps, null)(SortList);
