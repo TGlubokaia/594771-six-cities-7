@@ -1,9 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
 import { sortTypeNames } from '../../const';
-// import SortItem from '../sort-item/sort-item';
-
 function SortList(props) {
   const { onSortType, sortType } = props;
   const sortTypes = Object.values(sortTypeNames);
@@ -34,9 +31,5 @@ SortList.propTypes = {
   onSortType: PropTypes.func.isRequired,
 };
 
-// const mapStateToProps = (state) => ({
-//   sortType: state.sortType,
-// });
-
 export default SortList;
-// export default connect(mapStateToProps, null)(SortList);
+
