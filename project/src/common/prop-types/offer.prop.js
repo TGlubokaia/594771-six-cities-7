@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const offerProp = PropTypes.shape({
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
   city: PropTypes.shape({
     location: PropTypes.shape({

@@ -10,6 +10,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropTypes from 'prop-types';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import reviewProp from '../../common/prop-types/review.prop';
+import PrivateRoute from '../private-route/private-route';
 
 function App(props) {
   const { reviews, authorizationStatus, isDataLoaded } = props;
@@ -28,17 +29,27 @@ function App(props) {
         <Route exact path={AppRoute.ROOT}>
           <MainScreen />
         </Route>
-        <Route exact path={AppRoute.FAVORITES}>
-          <FavoritesScreen />
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.FAVORITES}
+          render={() => <FavoritesScreen />}
+          redirectPath={AppRoute.LOGIN}
+          authorizationStatus={authorizationStatus}
+          authStatusRequired={AuthorizationStatus.AUTH}
+        />
         <Route path={AppRoute.ROOM}>
           <RoomScreen
             reviews={reviews}
           />
         </Route>
-        <Route exact path={AppRoute.LOGIN}>
-          <SignInScreen />
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.LOGIN}
+          render={() => <SignInScreen />}
+          redirectPath={AppRoute.ROOT}
+          authorizationStatus={authorizationStatus}
+          authStatusRequired={AuthorizationStatus.NO_AUTH}
+        />
         <Route>
           <NotFoundScreen />
         </Route>

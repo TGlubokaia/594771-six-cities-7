@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import {ActionCreator} from '../../store/action';
+import { ActionCreator } from '../../store/action';
 
 function FilterItem(props) {
   const { city, selectedCity, onFilterItem } = props;
@@ -33,5 +33,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export {FilterItem};
+export { FilterItem };
 export default connect(mapStateToProps, mapDispatchToProps)(FilterItem);
