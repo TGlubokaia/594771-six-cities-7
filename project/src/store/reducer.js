@@ -8,6 +8,7 @@ const initialState = {
   pointOnFocus: {},
   initialOffers: [],
   isDataLoaded: false,
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
 };
 
 const reducer = (state = initialState, action) => {
