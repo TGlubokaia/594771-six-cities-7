@@ -3,6 +3,7 @@ const ActionType = {
   SORT_OFFERS_LIST: 'offers/sortOffers',
   LOAD_OFFERS: 'offers/loadOffers',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
+  LOGIN: 'user/login',
   LOGOUT: 'user/logout',
 };
 
@@ -22,6 +23,10 @@ const ActionCreator = {
   requireAuthorization: (status) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: status,
+  }),
+  login: (authInfo) => ({
+    type: ActionType.LOGIN,
+    payload: authInfo,
   }),
   logout: () => ({
     type: ActionType.LOGOUT,

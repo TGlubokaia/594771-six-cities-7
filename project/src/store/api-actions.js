@@ -12,7 +12,10 @@ const fetchOffers = () => (dispatch, _getState, api) => (
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(({data}) => {
+      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(ActionCreator.login({data}));
+    })
     .catch(() => {})
 );
 
@@ -22,7 +25,10 @@ const login = ({login: email, password}) => (dispatch, _getState, api) => (
       console.log(data);
       localStorage.setItem('token', data.token);
     })
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(({data}) => {
+      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(ActionCreator.login({data}));
+    })
 );
 
 const logout = () => (dispatch, _getState, api) => (
