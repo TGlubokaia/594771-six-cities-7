@@ -29,9 +29,14 @@
       "react-app/jest",
       "htmlacademy/react"
     ],
-    "rules": {    
-      "no-use-before-define": ["error", { "variables": false }],
-      "no-console":  "off"
+    "rules": {
+      "no-use-before-define": [
+        "error",
+        {
+          "variables": false
+        }
+      ],
+      "no-console": "off"
     }
   },
   "browserslist": {

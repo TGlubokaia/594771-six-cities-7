@@ -13,6 +13,7 @@ import offerProp from '../../common/prop-types/offer.prop';
 
 
 const DEFAULT_SORT_TYPE = sortTypeNames.DEFAULT;
+
 function MainScreen(props) {
   const {initialOffers, selectedCity} = props;
 
@@ -30,7 +31,12 @@ function MainScreen(props) {
   useEffect(() => {
     const sortedOffers = getSortedOffers(filteredOffers, offers, sortType);
     setOffers(sortedOffers);
-  }, [sortType, selectedCity]);
+  }, [sortType]);
+
+  useEffect(() => {
+    setSortType(DEFAULT_SORT_TYPE);
+    setOffers(filteredOffers);
+  }, [selectedCity]);
 
   const points = offers.map((offer) => offer.location);
   const city = getCityData(selectedCity);
