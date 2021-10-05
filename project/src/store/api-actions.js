@@ -20,13 +20,14 @@ const checkAuth = () => (dispatch, _getState, api) => (
     .catch(() => { })
 );
 
-const login = ({login: email, password}) => (dispatch, _getState, api) => (
+const login = ({email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
-      console.log(data);
       localStorage.setItem('token', data.token);
+      return data;
     })
     .then((data) => {
+      console.log(data);
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       const adaptedUserInfo = userInfoAdapter(data);
       dispatch(ActionCreator.login(adaptedUserInfo));

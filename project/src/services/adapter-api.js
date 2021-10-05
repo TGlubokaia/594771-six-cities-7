@@ -38,6 +38,7 @@ const offersAdapter = function (serverOffers) {
 
 
 const userInfoAdapter = function (serverUserInfo) {
+
   return ({
     avatarUrl: serverUserInfo['avatar_url'],
     email: serverUserInfo['email'],
