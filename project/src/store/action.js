@@ -2,8 +2,8 @@ const ActionType = {
   CHANGE_CITY: 'main/changeCities',
   SORT_OFFERS_LIST: 'offers/sortOffers',
   LOAD_OFFERS: 'offers/loadOffers',
-  LOGIN: 'user/login',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
+  LOGIN: 'user/login',
   LOGOUT: 'user/logout',
 };
 
@@ -20,13 +20,13 @@ const ActionCreator = {
     type: ActionType.LOAD_OFFERS,
     payload: offers,
   }),
-  login: (authInfo) => ({
-    type: ActionType.LOGIN,
-    payload: authInfo,
-  }),
   requireAuthorization: (status) => ({
     type: ActionType.REQUIRED_AUTHORIZATION,
     payload: status,
+  }),
+  login: (authInfo) => ({
+    type: ActionType.LOGIN,
+    payload: authInfo,
   }),
   logout: () => ({
     type: ActionType.LOGOUT,

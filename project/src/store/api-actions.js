@@ -1,10 +1,10 @@
 import { ActionCreator } from './action';
 import { APIRoute, AuthorizationStatus } from '../const';
-import { offersAdapter, userInfoAdapter } from '../services/adapter-api';
+import {offersAdapter, userInfoAdapter} from '../services/adapter-api';
 
 const fetchOffers = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
-    .then(({ data }) => {
+    .then(({data}) => {
       const adaptedData = offersAdapter(data);
       dispatch(ActionCreator.loadOffers(adaptedData));
     })
@@ -12,24 +12,25 @@ const fetchOffers = () => (dispatch, _getState, api) => (
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(({ data }) => {
-      dispatch(ActionCreator.login(userInfoAdapter(data)));
+    .then(({data}) => {
+      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      const adaptedUserInfo = userInfoAdapter(data);
+      dispatch(ActionCreator.login(adaptedUserInfo));
     })
     .catch(() => { })
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
-    .catch(() => {})
 );
 
-const login = ({ login: email, password }) => (dispatch, _getState, api) => (
-  api.post(APIRoute.LOGIN, { email, password })
-    .then(({ data }) => {
+const login = ({login: email, password}) => (dispatch, _getState, api) => (
+  api.post(APIRoute.LOGIN, {email, password})
+    .then(({data}) => {
       console.log(data);
       localStorage.setItem('token', data.token);
     })
-    .then(({ data }) => {
-      dispatch(ActionCreator.login(userInfoAdapter(data)));
+    .then((data) => {
+      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      const adaptedUserInfo = userInfoAdapter(data);
+      dispatch(ActionCreator.login(adaptedUserInfo));
     })
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
 );
 
 const logout = () => (dispatch, _getState, api) => (
@@ -38,4 +39,4 @@ const logout = () => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.logout()))
 );
 
-export { fetchOffers, checkAuth, login, logout };
+export {fetchOffers, checkAuth, login, logout};
