@@ -15,7 +15,7 @@ import offerProp from '../../common/prop-types/offer.prop';
 const DEFAULT_SORT_TYPE = sortTypeNames.DEFAULT;
 
 function MainScreen(props) {
-  const {initialOffers, selectedCity} = props;
+  const {initialOffers, selectedCity, authorizationInfo} = props;
 
   const filteredOffers = getFilteredOffers(initialOffers, selectedCity);
 
@@ -59,14 +59,15 @@ function MainScreen(props) {
                     <a className="header__nav-link header__nav-link--profile" href="#">
                       <div className="header__avatar-wrapper user__avatar-wrapper">
                       </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                      {authorizationInfo ? <span className="header__user-name user__name">{authorizationInfo.email}</span> : <span className="header__login">Sign in</span>}
                     </a>
                   </li>
-                  <li className="header__nav-item">
-                    <a className="header__nav-link" href="#">
-                      <span className="header__signout">Sign out</span>
-                    </a>
-                  </li>
+                  {authorizationInfo ? (
+                    <li className="header__nav-item">
+                      <a className="header__nav-link" href="#">
+                        <span className="header__signout">Sign out</span>
+                      </a>
+                    </li>) : ''}
                 </ul>
               </nav>
             </div>
@@ -100,6 +101,7 @@ function MainScreen(props) {
 MainScreen.propTypes = {
   initialOffers: PropTypes.arrayOf(offerProp),
   selectedCity: PropTypes.string.isRequired,
+  authorizationInfo: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
