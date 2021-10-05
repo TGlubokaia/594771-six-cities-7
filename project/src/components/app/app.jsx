@@ -32,10 +32,10 @@ function App(props) {
         <PrivateRoute
           exact
           path={AppRoute.FAVORITES}
-          authorizationStatus={authorizationStatus}
-          authStatusRequired={AuthorizationStatus.AUTH}
           render={() => <FavoritesScreen />}
           redirectPath={AppRoute.LOGIN}
+          authorizationStatus={authorizationStatus}
+          authStatusRequired={AuthorizationStatus.AUTH}
         />
         <Route path={AppRoute.ROOM}>
           <RoomScreen
@@ -45,10 +45,10 @@ function App(props) {
         <PrivateRoute
           exact
           path={AppRoute.LOGIN}
-          authorizationStatus={authorizationStatus}
-          authStatusRequired={AuthorizationStatus.NO_AUTH}
           render={() => <SignInScreen />}
           redirectPath={AppRoute.ROOT}
+          authorizationStatus={authorizationStatus}
+          authStatusRequired={AuthorizationStatus.NO_AUTH}
         />
         <Route>
           <NotFoundScreen />

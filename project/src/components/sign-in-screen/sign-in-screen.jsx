@@ -5,7 +5,7 @@ import Logo from '../logo/logo';
 
 function SignInScreen({ onSubmit }) {
 
-  const emailRef = useRef();
+  const loginRef = useRef();
   const passwordRef = useRef();
 
   // const history = useHistory();
@@ -14,7 +14,7 @@ function SignInScreen({ onSubmit }) {
     evt.preventDefault();
 
     onSubmit({
-      email: emailRef.current.value,
+      login: loginRef.current.value,
       password: passwordRef.current.value,
     });
   };
@@ -59,7 +59,7 @@ function SignInScreen({ onSubmit }) {
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
                   <input
-                    ref={emailRef}
+                    ref={loginRef}
                     className="login__input form__input"
                     type="email"
                     name="email"
