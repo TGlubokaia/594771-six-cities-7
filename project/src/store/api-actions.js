@@ -1,10 +1,10 @@
-import {ActionCreator} from './action';
-import {AuthorizationStatus, APIRoute} from '../const';
-import {offersAdapter} from '../services/adapter-api';
+import { ActionCreator } from './action';
+import { APIRoute } from '../const';
+import { offersAdapter, userInfoAdapter } from '../services/adapter-api';
 
 const fetchOffers = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
-    .then(({data}) => {
+    .then(({ data }) => {
       const adaptedData = offersAdapter(data);
       dispatch(ActionCreator.loadOffers(adaptedData));
     })
@@ -12,22 +12,20 @@ const fetchOffers = () => (dispatch, _getState, api) => (
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(({data}) => {
-      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
-      dispatch(ActionCreator.login({data}));
+    .then(({ data }) => {
+      dispatch(ActionCreator.login(userInfoAdapter(data)));
     })
-    .catch(() => {})
+    .catch(() => { })
 );
 
-const login = ({login: email, password}) => (dispatch, _getState, api) => (
-  api.post(APIRoute.LOGIN, {email, password})
-    .then(({data}) => {
+const login = ({ login: email, password }) => (dispatch, _getState, api) => (
+  api.post(APIRoute.LOGIN, { email, password })
+    .then(({ data }) => {
       console.log(data);
       localStorage.setItem('token', data.token);
     })
-    .then(({data}) => {
-      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
-      dispatch(ActionCreator.login({data}));
+    .then(({ data }) => {
+      dispatch(ActionCreator.login(userInfoAdapter(data)));
     })
 );
 
@@ -37,4 +35,4 @@ const logout = () => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.logout()))
 );
 
-export {fetchOffers, checkAuth, login, logout};
+export { fetchOffers, checkAuth, login, logout };
