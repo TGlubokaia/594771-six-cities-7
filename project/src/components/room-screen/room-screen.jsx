@@ -13,13 +13,16 @@ import Map from '../map/map';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 
 function RoomScreen(props) {
-  const { renderedOffers, reviews, selectedCity } = props;
+  const { initialOffers, reviews, selectedCity } = props;
   const params = useParams();
-  const offerItem = renderedOffers.find((offer) => offer.id === params.id);
+
+  console.log(params);
+  const offerItem = initialOffers.find((offer) => offer.id.toString() === params.id);
+  console.log(offerItem);
   const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images, location } = offerItem;
   const city = getCityData(selectedCity);
 
-  const nearestPoints = getNearestPoints(renderedOffers);
+  const nearestPoints = getNearestPoints(initialOffers);
   const allPoints = [...nearestPoints].map((point) => point.location);
   allPoints.push(location);
 
@@ -170,13 +173,13 @@ function RoomScreen(props) {
 }
 
 RoomScreen.propTypes = {
-  renderedOffers: PropTypes.arrayOf(offerProp),
+  initialOffers: PropTypes.arrayOf(offerProp),
   reviews: PropTypes.arrayOf(reviewProp),
   selectedCity: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  renderedOffers: state.renderedOffers,
+  initialOffers: state.initialOffers,
   selectedCity: state.selectedCity,
 });
 

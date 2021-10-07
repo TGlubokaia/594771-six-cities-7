@@ -10,11 +10,10 @@ import RoomScreen from '../room-screen/room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import PropTypes from 'prop-types';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import reviewProp from '../../common/prop-types/review.prop';
 import PrivateRoute from '../private-route/private-route';
 
 function App(props) {
-  const { reviews, authorizationStatus, isDataLoaded } = props;
+  const { authorizationStatus, isDataLoaded } = props;
 
   if (authorizationStatus === AuthorizationStatus.UNKNOWN || !isDataLoaded) {
     return (
@@ -39,9 +38,7 @@ function App(props) {
           authStatusRequired={AuthorizationStatus.AUTH}
         />
         <Route path={AppRoute.ROOM}>
-          <RoomScreen
-            reviews={reviews}
-          />
+          <RoomScreen/>
         </Route>
         <PrivateRoute
           exact
@@ -60,7 +57,6 @@ function App(props) {
 }
 
 App.propTypes = {
-  reviews: PropTypes.arrayOf(reviewProp),
   authorizationStatus: PropTypes.string,
   isDataLoaded: PropTypes.bool.isRequired,
 };

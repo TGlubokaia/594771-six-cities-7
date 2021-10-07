@@ -1,7 +1,6 @@
 import React, { useRef, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-// import { useHistory } from 'react-router-dom';
 import Logo from '../logo/logo';
 import {login} from '../../store/api-actions';
 
@@ -9,8 +8,6 @@ function SignInScreen({ onSubmit }) {
 
   const emailRef = useRef();
   const passwordRef = useRef();
-
-  // const history = useHistory();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
