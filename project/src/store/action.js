@@ -5,6 +5,7 @@ const ActionType = {
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGIN: 'user/login',
   LOGOUT: 'user/logout',
+  REDIRECTED_TO_ROUTE: 'app/redirectedToRoute',
 };
 
 const ActionCreator = {
@@ -30,6 +31,10 @@ const ActionCreator = {
   }),
   logout: () => ({
     type: ActionType.LOGOUT,
+  }),
+  redirectedToRoute: (url) => ({
+    type: ActionType.REDIRECTED_TO_ROUTE,
+    payload: url,
   }),
 };
 

@@ -1,5 +1,5 @@
 import { ActionCreator } from './action';
-import { APIRoute, AuthorizationStatus } from '../const';
+import { APIRoute, AuthorizationStatus, AppRoute } from '../const';
 import {offersAdapter, userInfoAdapter} from '../services/adapter-api';
 
 const fetchOffers = () => (dispatch, _getState, api) => (
@@ -27,10 +27,10 @@ const login = ({email, password}) => (dispatch, _getState, api) => (
       return data;
     })
     .then((data) => {
-      console.log(data);
       dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
       const adaptedUserInfo = userInfoAdapter(data);
       dispatch(ActionCreator.login(adaptedUserInfo));
+      dispatch(ActionCreator.redirectedToRoute(AppRoute.ROOT));
     })
 );
 

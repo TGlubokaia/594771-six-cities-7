@@ -1,6 +1,7 @@
 import React from 'react';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, Router as BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import browserHistory from '../../browser-history';
 import LoadingScreen from '../loading-screen/loading-screen';
 import MainScreen from '../main-screen/main-screen';
 import SignInScreen from '../sign-in-screen/sign-in-screen';
@@ -24,7 +25,7 @@ function App(props) {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <MainScreen />
