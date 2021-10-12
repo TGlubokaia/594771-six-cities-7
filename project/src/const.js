@@ -126,6 +126,7 @@ const APIRoute = {
   OFFERS: '/hotels',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  OFFER: (id) => `/hotels/${id}`,
 };
 
 export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, sortTypeNames, MainScreenClasses, RoomScreenClasses, getNearestPoints, getCityData, cities, AuthorizationStatus, APIRoute };

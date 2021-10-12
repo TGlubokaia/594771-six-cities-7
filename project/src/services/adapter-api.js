@@ -1,5 +1,5 @@
-const offersAdapter = function (serverOffers) {
-  return serverOffers.map((offer) => ({
+const offerAdapter = function (offer) {
+  return ({
     id: offer.id,
     type: offer.type,
     city: {
@@ -32,8 +32,11 @@ const offersAdapter = function (serverOffers) {
     },
     isPremium: offer.is_premium,
     isFavorite: offer.is_favorite,
-  }),
-  );
+  });
+};
+
+const offersAdapter = function (serverOffers) {
+  return serverOffers.map((offer) => offerAdapter(offer));
 };
 
 
@@ -49,5 +52,4 @@ const userInfoAdapter = function (serverUserInfo) {
   });
 };
 
-
-export { offersAdapter, userInfoAdapter };
+export { offersAdapter, userInfoAdapter, offerAdapter };

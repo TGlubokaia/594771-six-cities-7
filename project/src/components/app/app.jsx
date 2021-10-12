@@ -17,7 +17,7 @@ function App(props) {
 
   if (authorizationStatus === AuthorizationStatus.UNKNOWN || !isDataLoaded) {
     return (
-      <BrowserRouter>
+      <BrowserRouter history={browserHistory}>
         <LoadingScreen />
       </BrowserRouter>
     );

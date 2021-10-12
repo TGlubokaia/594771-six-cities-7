@@ -1,25 +1,45 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
+import api from '../../index';
+import { offerAdapter } from '../../services/adapter-api';
 import offerProp from '../../common/prop-types/offer.prop';
-import reviewProp from '../../common/prop-types/review.prop';
+// import reviewProp from '../../common/prop-types/review.prop';
 import { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Logo from '../logo/logo';
-import RoomReviewsList from '../room-reviews-list/room-reviews-list';
+// import RoomReviewsList from '../room-reviews-list/room-reviews-list';
 import RoomCommentForm from '../room-comment-form/room-comment-form';
-import { getRating, getPluralDesc, RoomScreenClasses, getNearestPoints, getCityData} from '../../const';
+import { getRating, getPluralDesc, RoomScreenClasses, getNearestPoints, getCityData, APIRoute } from '../../const';
 import Map from '../map/map';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 
-function RoomScreen(props) {
-  const { initialOffers, reviews, selectedCity } = props;
-  const params = useParams();
 
-  console.log(params);
-  const offerItem = initialOffers.find((offer) => offer.id.toString() === params.id);
-  console.log(offerItem);
-  const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images, location } = offerItem;
+function RoomScreen(props) {
+  const { initialOffers, selectedCity } = props;
+
+  const params = useParams();
+  const offerId = params.id;
+
+  const [offer, setOffer] = useState(null);
+
+  useEffect(() => {
+    api.get(APIRoute.OFFER(offerId))
+      .then(({ data }) => {
+        setOffer(offerAdapter(data));
+        console.log(offer);
+      });
+  }, [offer]);
+
+  if (offer === null) {
+    return (
+      <div>Sorry</div>
+    );
+  }
+
+  // const offerItem = initialOffers.find((offerI) => offerI.id.toString() === params.id);
+
+  const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images, location } = offer;
   const city = getCityData(selectedCity);
 
   const nearestPoints = getNearestPoints(initialOffers);
@@ -73,7 +93,7 @@ function RoomScreen(props) {
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {images.map((image) => (
+                {images.slice(0, 6).map((image) => (
                   <div key={image} className="property__image-wrapper">
                     <img className="property__image" src={image} alt="Photo studio" />
                   </div>))}
@@ -150,20 +170,20 @@ function RoomScreen(props) {
                   </div>
                 </div>
                 <section className="property__reviews reviews">
-                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                  <RoomReviewsList reviews={reviews} />
+                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{/*reviews.length*/}</span></h2>
+                  {/* <RoomReviewsList reviews={reviews} /> */}
                   <RoomCommentForm />
                 </section>
               </div>
             </div>
             <section className="property__map map">
-              <Map city={city} points={allPoints} pointOnFocus={location}/>
+              <Map city={city} points={allPoints} pointOnFocus={location} />
             </section>
           </section>
           <div className="container">
             <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <OfferItemsList offers={nearestPoints} classes={RoomScreenClasses}/>
+              <OfferItemsList offers={nearestPoints} classes={RoomScreenClasses} />
             </section>
           </div>
         </main>
@@ -174,7 +194,7 @@ function RoomScreen(props) {
 
 RoomScreen.propTypes = {
   initialOffers: PropTypes.arrayOf(offerProp),
-  reviews: PropTypes.arrayOf(reviewProp),
+  // reviews: PropTypes.arrayOf(reviewProp),
   selectedCity: PropTypes.string.isRequired,
 };
 
@@ -183,5 +203,5 @@ const mapStateToProps = (state) => ({
   selectedCity: state.selectedCity,
 });
 
-export {RoomScreen};
+export { RoomScreen };
 export default connect(mapStateToProps)(RoomScreen);
