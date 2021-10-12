@@ -27,9 +27,8 @@ function RoomScreen(props) {
     api.get(APIRoute.OFFER(offerId))
       .then(({ data }) => {
         setOffer(offerAdapter(data));
-        console.log(offer);
       });
-  }, [offer]);
+  }, []);
 
   if (offer === null) {
     return (
