@@ -2,18 +2,17 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import api from '../../index';
-import { offerAdapter } from '../../services/adapter-api';
+import { offerAdapter, commentsAdapter } from '../../services/adapter-api';
 import offerProp from '../../common/prop-types/offer.prop';
 // import reviewProp from '../../common/prop-types/review.prop';
 import { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Logo from '../logo/logo';
-// import RoomReviewsList from '../room-reviews-list/room-reviews-list';
+import RoomReviewsList from '../room-reviews-list/room-reviews-list';
 import RoomCommentForm from '../room-comment-form/room-comment-form';
 import { getRating, getPluralDesc, RoomScreenClasses, getNearestPoints, getCityData, APIRoute } from '../../const';
 import Map from '../map/map';
 import OfferItemsList from '../offer-items-list/offer-items-list';
-
 
 function RoomScreen(props) {
   const { initialOffers, selectedCity } = props;
@@ -21,24 +20,38 @@ function RoomScreen(props) {
   const params = useParams();
   const offerId = params.id;
 
-  const [offer, setOffer] = useState(null);
+  const [data, setData] = useState({
+    offer: null,
+    comments: null,
+  });
+
+
+  const fetchOffer = (id) => api.get(APIRoute.OFFER(id));
+
+  const fetchComments = (id) => api.get(APIRoute.OFFER_COMMENTS(id));
 
   useEffect(() => {
-    api.get(APIRoute.OFFER(offerId))
-      .then(({ data }) => {
-        setOffer(offerAdapter(data));
+    Promise.all([
+      fetchOffer(offerId),
+      fetchComments(offerId),
+    ])
+      .then((response) => {
+        setData({
+          offer: offerAdapter(response[0].data),
+          comments: commentsAdapter(response[1].data),
+        });
+
       });
   }, []);
 
-  if (offer === null) {
+
+  if (data.offer === null && data.comments === null) {
     return (
       <div>Sorry</div>
     );
   }
 
-  // const offerItem = initialOffers.find((offerI) => offerI.id.toString() === params.id);
-
-  const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images, location } = offer;
+  const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images, location } = data.offer;
   const city = getCityData(selectedCity);
 
   const nearestPoints = getNearestPoints(initialOffers);
@@ -170,7 +183,7 @@ function RoomScreen(props) {
                 </div>
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{/*reviews.length*/}</span></h2>
-                  {/* <RoomReviewsList reviews={reviews} /> */}
+                  <RoomReviewsList reviews={data.comments} />
                   <RoomCommentForm />
                 </section>
               </div>

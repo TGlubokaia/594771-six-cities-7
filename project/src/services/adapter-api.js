@@ -52,4 +52,20 @@ const userInfoAdapter = function (serverUserInfo) {
   });
 };
 
-export { offersAdapter, userInfoAdapter, offerAdapter };
+const commentsAdapter = function (serverComments) {
+  return serverComments.map((comment) => ({
+    id: comment.id,
+    rating: comment.rating,
+    date: comment.date, //2019-05-08T14:13:56.569Z
+    comment: comment.comment,
+    user: {
+      userAvatar: comment.user['avatar_url'],
+      id: comment.user,
+      isPro: comment.user['is_pro'],
+      userName: comment.user['name'],
+    },
+  }));
+};
+
+
+export { offersAdapter, userInfoAdapter, offerAdapter, commentsAdapter };

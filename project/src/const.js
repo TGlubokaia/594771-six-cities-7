@@ -127,6 +127,8 @@ const APIRoute = {
   LOGIN: '/login',
   LOGOUT: '/logout',
   OFFER: (id) => `/hotels/${id}`,
+  OFFERS_NEARBY: (id) => `/hotels/${id}/nearby`,
+  OFFER_COMMENTS: (id) => `/comments/${id}`,
 };
 
 export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, sortTypeNames, MainScreenClasses, RoomScreenClasses, getNearestPoints, getCityData, cities, AuthorizationStatus, APIRoute };
