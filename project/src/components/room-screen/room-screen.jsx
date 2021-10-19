@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
-import api from '../../index';
 import { offerAdapter, commentsAdapter } from '../../services/adapter-api';
+import fetchOffer from '../../services/api-utils';
 import offerProp from '../../common/prop-types/offer.prop';
 // import reviewProp from '../../common/prop-types/review.prop';
 import { Fragment } from 'react';
@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import Logo from '../logo/logo';
 import RoomReviewsList from '../room-reviews-list/room-reviews-list';
 import RoomCommentForm from '../room-comment-form/room-comment-form';
-import { getRating, getPluralDesc, RoomScreenClasses, getNearestPoints, getCityData, APIRoute } from '../../const';
+import { getRating, getPluralDesc, RoomScreenClasses, getNearestPoints, getCityData } from '../../const';
 import Map from '../map/map';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 
@@ -22,30 +22,26 @@ function RoomScreen(props) {
 
   const [data, setData] = useState({
     offer: null,
-    comments: null,
+    comments: [],
   });
-
-
-  const fetchOffer = (id) => api.get(APIRoute.OFFER(id));
-
-  const fetchComments = (id) => api.get(APIRoute.OFFER_COMMENTS(id));
+  const [isLoading, setIsLoading] = useState(null);
+  // const [error, setError] = useState(null);
 
   useEffect(() => {
-    Promise.all([
-      fetchOffer(offerId),
-      fetchComments(offerId),
-    ])
+    setIsLoading(true);
+    fetchOffer(offerId)
       .then((response) => {
+        console.log(response);
         setData({
           offer: offerAdapter(response[0].data),
           comments: commentsAdapter(response[1].data),
         });
-
+        setIsLoading(false);
       });
   }, []);
 
 
-  if (data.offer === null && data.comments === null) {
+  if (isLoading || isLoading === null) {
     return (
       <div>Sorry</div>
     );

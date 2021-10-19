@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { MainScreenClasses, sortTypeNames, getCityData, getPluralDesc, AppRoute } from '../../const';
+import { MainScreenClasses, sortTypeNames, getCityData, getPluralDesc} from '../../const';
 import { getFilteredOffers } from '../../utils/filter';
 import { getSortedOffers } from '../../utils/sort';
 import { logout } from '../../store/api-actions';
@@ -17,7 +16,7 @@ import offerProp from '../../common/prop-types/offer.prop';
 const DEFAULT_SORT_TYPE = sortTypeNames.DEFAULT;
 
 function MainScreen(props) {
-  const { initialOffers, selectedCity, authorizationInfo, onLogout } = props;
+  const { initialOffers, selectedCity, authorizationInfo, onLogout, onSignInClick } = props;
 
   const filteredOffers = getFilteredOffers(initialOffers, selectedCity);
 
@@ -29,8 +28,11 @@ function MainScreen(props) {
   const onActiveSortType = (sort) => {
     setSortType(sort);
   };
-  const handleClick = () => {
+  const handleSignOutClick = () => {
     onLogout();
+  };
+  const handleSighInClick = () => {
+    onSignInClick();
   };
 
   useEffect(() => {
@@ -66,12 +68,12 @@ function MainScreen(props) {
                       </div>
                       {authorizationInfo
                         ? <span className="header__user-name user__name">{authorizationInfo.email}</span>
-                        : <Link to={AppRoute.LOGIN}><span className="header__login">Sign in</span></Link>}
+                        : <span className="header__login" onClick={handleSighInClick}>Sign in</span>}
                     </a>
                   </li>
                   {authorizationInfo
                     ? (
-                      <li className="header__nav-item" onClick={handleClick}>
+                      <li className="header__nav-item" onClick={handleSignOutClick}>
                         <a className="header__nav-link" href="#">
                           <span className="header__signout" >Sign out</span>
                         </a>
@@ -113,6 +115,7 @@ MainScreen.propTypes = {
   selectedCity: PropTypes.string.isRequired,
   authorizationInfo: PropTypes.object,
   onLogout: PropTypes.func.isRequired,
+  onSignInClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
