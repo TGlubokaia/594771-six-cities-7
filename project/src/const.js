@@ -103,10 +103,12 @@ const getPluralDesc = function (count) {
   return count > 1 || count === 0 ? 's' : '';
 };
 
-const getNearestPoints = function (points) {
+const getNearbyPoints = function (currentOffer, offersNearby) {
+  const allOffers = offersNearby.slice(0, 3);
+  allOffers.push(currentOffer);
   const allNearestPoints = [];
-  for (let i = 0; i < 2; i++) {
-    allNearestPoints.push(points[i]);
+  for (let i = 0; i < allOffers.length; i++) {
+    allNearestPoints.push(allOffers[i].location);
   }
   return allNearestPoints;
 };
@@ -131,4 +133,4 @@ const APIRoute = {
   OFFER_COMMENTS: (id) => `/comments/${id}`,
 };
 
-export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, sortTypeNames, MainScreenClasses, RoomScreenClasses, getNearestPoints, getCityData, cities, AuthorizationStatus, APIRoute };
+export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, sortTypeNames, MainScreenClasses, RoomScreenClasses, getNearbyPoints, getCityData, cities, AuthorizationStatus, APIRoute };

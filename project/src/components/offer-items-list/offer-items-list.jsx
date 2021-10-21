@@ -22,7 +22,7 @@ function OfferItemsList(props) {
 OfferItemsList.propTypes = {
   offers: PropTypes.arrayOf(offerProp),
   classes: classesProp,
-  onActiveOffer: PropTypes.func.isRequired,
+  onActiveOffer: PropTypes.func,
 };
 
 export default OfferItemsList;

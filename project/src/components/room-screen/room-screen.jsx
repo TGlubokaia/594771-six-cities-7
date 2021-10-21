@@ -1,58 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
-import { offerAdapter, commentsAdapter } from '../../services/adapter-api';
+import { offerAdapter, commentsAdapter, offersAdapter } from '../../services/adapter-api';
 import fetchOffer from '../../services/api-utils';
-import offerProp from '../../common/prop-types/offer.prop';
-// import reviewProp from '../../common/prop-types/review.prop';
 import { Fragment } from 'react';
-import { connect } from 'react-redux';
 import Logo from '../logo/logo';
 import RoomReviewsList from '../room-reviews-list/room-reviews-list';
 import RoomCommentForm from '../room-comment-form/room-comment-form';
-import { getRating, getPluralDesc, RoomScreenClasses, getNearestPoints, getCityData } from '../../const';
+import { getRating, getPluralDesc, RoomScreenClasses, getNearbyPoints } from '../../const';
 import Map from '../map/map';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 
-function RoomScreen(props) {
-  const { initialOffers, selectedCity } = props;
-
+function RoomScreen() {
   const params = useParams();
   const offerId = params.id;
 
   const [data, setData] = useState({
-    offer: null,
+    offer: {},
     comments: [],
   });
   const [isLoading, setIsLoading] = useState(null);
-  // const [error, setError] = useState(null);
+  const [offersNearby, setOffersNearby] = useState([]);
+  const [points, setPoints] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
     fetchOffer(offerId)
       .then((response) => {
-        console.log(response);
         setData({
           offer: offerAdapter(response[0].data),
           comments: commentsAdapter(response[1].data),
         });
+        setOffersNearby(offersAdapter(response[2].data));
+        setPoints(getNearbyPoints(offerAdapter(response[0].data), offersAdapter(response[2].data)));
         setIsLoading(false);
       });
   }, []);
 
-
-  if (isLoading || isLoading === null) {
-    return (
-      <div>Sorry</div>
-    );
-  }
-
-  const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images, location } = data.offer;
-  const city = getCityData(selectedCity);
-
-  const nearestPoints = getNearestPoints(initialOffers);
-  const allPoints = [...nearestPoints].map((point) => point.location);
-  allPoints.push(location);
+  const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images } = data.offer;
+  const city = data.offer.city;
 
   return (
     <Fragment>
@@ -96,120 +81,111 @@ function RoomScreen(props) {
             </div>
           </div>
         </header>
-
-        <main className="page__main page__main--property">
-          <section className="property">
-            <div className="property__gallery-container container">
-              <div className="property__gallery">
-                {images.slice(0, 6).map((image) => (
-                  <div key={image} className="property__image-wrapper">
-                    <img className="property__image" src={image} alt="Photo studio" />
-                  </div>))}
+        {(isLoading || isLoading === null)
+          ? <div>Loading</div>
+          :
+          <main className="page__main page__main--property">
+            <section className="property">
+              <div className="property__gallery-container container">
+                <div className="property__gallery">
+                  {images.slice(0, 6).map((image) => (
+                    <div key={image} className="property__image-wrapper">
+                      <img className="property__image" src={image} alt="Photo studio" />
+                    </div>))}
+                </div>
               </div>
-            </div>
-            <div className="property__container container">
-              <div className="property__wrapper">
-                {isPremium && (
-                  <div className="property__mark">
-                    <span>Premium</span>
-                  </div>)}
-                <div className="property__name-wrapper">
-                  <h1 className="property__name">
-                    {title}
-                  </h1>
-                  <button className={`property__bookmark-button ${isFavorite && 'property__bookmark-button--active'} button`} type="button">
-                    <svg className="property__bookmark-icon" width="31" height="33">
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
-                </div>
-                <div className="property__rating rating">
-                  <div className="property__stars rating__stars">
-                    <span style={{ width: `${getRating(rating)}%` }}></span>
-                    <span className="visually-hidden">Rating</span>
+              <div className="property__container container">
+                <div className="property__wrapper">
+                  {isPremium && (
+                    <div className="property__mark">
+                      <span>Premium</span>
+                    </div>)}
+                  <div className="property__name-wrapper">
+                    <h1 className="property__name">
+                      {title}
+                    </h1>
+                    <button className={`property__bookmark-button ${isFavorite && 'property__bookmark-button--active'} button`} type="button">
+                      <svg className="property__bookmark-icon" width="31" height="33">
+                        <use xlinkHref="#icon-bookmark"></use>
+                      </svg>
+                      <span className="visually-hidden">To bookmarks</span>
+                    </button>
                   </div>
-                  <span className="property__rating-value rating__value">{rating}</span>
-                </div>
-                <ul className="property__features">
-                  <li className="property__feature property__feature--entire">
-                    {type}
-                  </li>
-                  <li className="property__feature property__feature--bedrooms">
-                    {bedrooms} Bedroom{getPluralDesc(bedrooms)}
-                  </li>
-                  <li className="property__feature property__feature--adults">
-                    Max {maxAdults} adult{getPluralDesc(maxAdults)}
-                  </li>
-                </ul>
-                <div className="property__price">
-                  <b className="property__price-value">&euro;{price}</b>
-                  <span className="property__price-text">&nbsp;night</span>
-                </div>
-                <div className="property__inside">
-                  <h2 className="property__inside-title">What&apos;s inside</h2>
-                  <ul className="property__inside-list">
-                    {goods.map((good) => (
-                      <li key={good} className="property__inside-item">
-                        {good}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="property__host">
-                  <h2 className="property__host-title">Meet the host</h2>
-                  <div className="property__host-user user">
-                    <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                      <img className="property__avatar user__avatar" src={host.hostAvatar} width="74" height="74" alt="Host avatar" />
+                  <div className="property__rating rating">
+                    <div className="property__stars rating__stars">
+                      <span style={{ width: `${getRating(rating)}%` }}></span>
+                      <span className="visually-hidden">Rating</span>
                     </div>
-                    <span className="property__user-name">
-                      {host.hostName}
-                    </span>
-                    {host.isPro && (
-                      <span className="property__user-status">
-                        Pro
-                      </span>)}
+                    <span className="property__rating-value rating__value">{rating}</span>
                   </div>
-                  <div className="property__description">
-                    {desc && (
-                      <p className="property__text">
-                        {desc}
-                      </p>)}
+                  <ul className="property__features">
+                    <li className="property__feature property__feature--entire">
+                      {type}
+                    </li>
+                    <li className="property__feature property__feature--bedrooms">
+                      {bedrooms} Bedroom{getPluralDesc(bedrooms)}
+                    </li>
+                    <li className="property__feature property__feature--adults">
+                      Max {maxAdults} adult{getPluralDesc(maxAdults)}
+                    </li>
+                  </ul>
+                  <div className="property__price">
+                    <b className="property__price-value">&euro;{price}</b>
+                    <span className="property__price-text">&nbsp;night</span>
                   </div>
+                  <div className="property__inside">
+                    <h2 className="property__inside-title">What&apos;s inside</h2>
+                    <ul className="property__inside-list">
+                      {goods.map((good) => (
+                        <li key={good} className="property__inside-item">
+                          {good}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="property__host">
+                    <h2 className="property__host-title">Meet the host</h2>
+                    <div className="property__host-user user">
+                      <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
+                        <img className="property__avatar user__avatar" src={host.hostAvatar} width="74" height="74" alt="Host avatar" />
+                      </div>
+                      <span className="property__user-name">
+                        {host.hostName}
+                      </span>
+                      {host.isPro && (
+                        <span className="property__user-status">
+                          Pro
+                        </span>)}
+                    </div>
+                    <div className="property__description">
+                      {desc && (
+                        <p className="property__text">
+                          {desc}
+                        </p>)}
+                    </div>
+                  </div>
+                  <section className="property__reviews reviews">
+                    <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{/*reviews.length*/}</span></h2>
+                    <RoomReviewsList reviews={data.comments} />
+                    <RoomCommentForm />
+                  </section>
                 </div>
-                <section className="property__reviews reviews">
-                  <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{/*reviews.length*/}</span></h2>
-                  <RoomReviewsList reviews={data.comments} />
-                  <RoomCommentForm />
-                </section>
               </div>
+              <section className="property__map map">
+                <Map city={city} points={points} pointOnFocus={data.offer.location} />
+              </section>
+            </section>
+            <div className="container">
+              <section className="near-places places">
+                <h2 className="near-places__title">Other places in the neighbourhood</h2>
+                <OfferItemsList offers={offersNearby} classes={RoomScreenClasses} />
+              </section>
             </div>
-            <section className="property__map map">
-              <Map city={city} points={allPoints} pointOnFocus={location} />
-            </section>
-          </section>
-          <div className="container">
-            <section className="near-places places">
-              <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <OfferItemsList offers={nearestPoints} classes={RoomScreenClasses} />
-            </section>
-          </div>
-        </main>
+          </main>}
       </div>
     </Fragment>
   );
 }
 
-RoomScreen.propTypes = {
-  initialOffers: PropTypes.arrayOf(offerProp),
-  // reviews: PropTypes.arrayOf(reviewProp),
-  selectedCity: PropTypes.string.isRequired,
-};
 
-const mapStateToProps = (state) => ({
-  initialOffers: state.initialOffers,
-  selectedCity: state.selectedCity,
-});
-
-export { RoomScreen };
-export default connect(mapStateToProps)(RoomScreen);
+export default RoomScreen;

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { MainScreenClasses, sortTypeNames, getCityData, getPluralDesc} from '../../const';
+import { MainScreenClasses, sortTypeNames, getCityData, getPluralDesc } from '../../const';
 import { getFilteredOffers } from '../../utils/filter';
 import { getSortedOffers } from '../../utils/sort';
 import { logout } from '../../store/api-actions';
+import EmptyList from '../empty-list/empty-list';
 import Logo from '../logo/logo';
 import FiltersList from '../filter-list/filters-list';
 import OfferItemsList from '../offer-items-list/offer-items-list';
@@ -12,8 +13,8 @@ import SortList from '../sort-list/sort-list';
 import Map from '../map/map';
 import offerProp from '../../common/prop-types/offer.prop';
 
-
 const DEFAULT_SORT_TYPE = sortTypeNames.DEFAULT;
+
 
 function MainScreen(props) {
   const { initialOffers, selectedCity, authorizationInfo, onLogout, onSignInClick } = props;
@@ -91,19 +92,22 @@ function MainScreen(props) {
           <div className="tabs">
             <FiltersList />
           </div>
-          <div className="cities">
-            <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offers.length} place{getPluralDesc(offers.length)} to stay in {selectedCity}</b>
-                <SortList onSortType={onActiveSortType} sortType={sortType} />
-                <OfferItemsList offers={offers} classes={MainScreenClasses} onActiveOffer={onActiveOffer} />
-              </section>
-              <div className="cities__right-section">
-                <Map city={city} points={points} pointOnFocus={activeOffer} />
+          {offers === []
+            ? <EmptyList />
+            :
+            <div className="cities">
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">{offers.length} place{getPluralDesc(offers.length)} to stay in {selectedCity}</b>
+                  <SortList onSortType={onActiveSortType} sortType={sortType} />
+                  <OfferItemsList offers={offers} classes={MainScreenClasses} onActiveOffer={onActiveOffer} />
+                </section>
+                <div className="cities__right-section">
+                  <Map city={city} points={points} pointOnFocus={activeOffer} />
+                </div>
               </div>
-            </div>
-          </div>
+            </div>}
         </main>
       </div>
     </React.Fragment>
@@ -116,12 +120,16 @@ MainScreen.propTypes = {
   authorizationInfo: PropTypes.object,
   onLogout: PropTypes.func.isRequired,
   onSignInClick: PropTypes.func.isRequired,
+  // authorizationStatus: PropTypes.string,
+  // isDataLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   initialOffers: state.initialOffers,
   selectedCity: state.selectedCity,
   authorizationInfo: state.authorizationInfo,
+  // authorizationStatus: state.authorizationStatus,
+  // isDataLoaded: state.isDataLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({

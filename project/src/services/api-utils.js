@@ -5,6 +5,7 @@ const fetchOffer = (id) => (
   Promise.allSettled([
     api.get(APIRoute.OFFER(id)),
     api.get(APIRoute.OFFER_COMMENTS(id)),
+    api.get(APIRoute.OFFERS_NEARBY(id)),
   ])
     .then((results) => {
       const responses = results.map((result) => {
@@ -15,7 +16,6 @@ const fetchOffer = (id) => (
           return result.value;
         }
       });
-      console.log(responses);
       return responses;
     })
 );
