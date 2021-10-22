@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import { MainScreenClasses, sortTypeNames, getCityData, getPluralDesc } from '../../const';
 import { getFilteredOffers } from '../../utils/filter';
 import { getSortedOffers } from '../../utils/sort';
-import { logout } from '../../store/api-actions';
+import Header from '../header/header';
 import EmptyList from '../empty-list/empty-list';
-import Logo from '../logo/logo';
 import FiltersList from '../filter-list/filters-list';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 import SortList from '../sort-list/sort-list';
@@ -17,7 +16,7 @@ const DEFAULT_SORT_TYPE = sortTypeNames.DEFAULT;
 
 
 function MainScreen(props) {
-  const { initialOffers, selectedCity, authorizationInfo, onLogout, onSignInClick } = props;
+  const { initialOffers, selectedCity } = props;
 
   const filteredOffers = getFilteredOffers(initialOffers, selectedCity);
 
@@ -28,12 +27,6 @@ function MainScreen(props) {
   const onActiveOffer = (offer) => setActiveOffer(offer.location);
   const onActiveSortType = (sort) => {
     setSortType(sort);
-  };
-  const handleSignOutClick = () => {
-    onLogout();
-  };
-  const handleSighInClick = () => {
-    onSignInClick();
   };
 
   useEffect(() => {
@@ -55,38 +48,7 @@ function MainScreen(props) {
         <svg xmlns={'http://www.w3.org/2000/svg'}><symbol id={'icon-arrow-select'} viewBox={'0 0 7 4'}><path fillRule={'evenodd'} clipRule={'evenodd'} d={'M0 0l3.5 2.813L7 0v1.084L3.5 4 0 1.084V0z'}></path></symbol><symbol id={'icon-bookmark'} viewBox={'0 0 17 18'}><path d={'M3.993 2.185l.017-.092V2c0-.554.449-1 .99-1h10c.522 0 .957.41.997.923l-2.736 14.59-4.814-2.407-.39-.195-.408.153L1.31 16.44 3.993 2.185z'}></path></symbol><symbol id={'icon-star'} viewBox={'0 0 13 12'}><path fillRule={'evenodd'} clipRule={'evenodd'} d={'M6.5 9.644L10.517 12 9.451 7.56 13 4.573l-4.674-.386L6.5 0 4.673 4.187 0 4.573 3.549 7.56 2.483 12 6.5 9.644z'}></path></symbol></svg>
       </div>
       <div className="page page--gray page--main">
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <div className="header__left">
-                <Logo />
-              </div>
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      {authorizationInfo
-                        ? <span className="header__user-name user__name">{authorizationInfo.email}</span>
-                        : <span className="header__login" onClick={handleSighInClick}>Sign in</span>}
-                    </a>
-                  </li>
-                  {authorizationInfo
-                    ? (
-                      <li className="header__nav-item" onClick={handleSignOutClick}>
-                        <a className="header__nav-link" href="#">
-                          <span className="header__signout" >Sign out</span>
-                        </a>
-                      </li>
-                    )
-                    : ''}
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
-
+        <Header />
         <main className="page__main page__main--index">
           <h1 className="visually-hidden">Cities</h1>
           <div className="tabs">
@@ -117,26 +79,12 @@ function MainScreen(props) {
 MainScreen.propTypes = {
   initialOffers: PropTypes.arrayOf(offerProp),
   selectedCity: PropTypes.string.isRequired,
-  authorizationInfo: PropTypes.object,
-  onLogout: PropTypes.func.isRequired,
-  onSignInClick: PropTypes.func.isRequired,
-  // authorizationStatus: PropTypes.string,
-  // isDataLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   initialOffers: state.initialOffers,
   selectedCity: state.selectedCity,
-  authorizationInfo: state.authorizationInfo,
-  // authorizationStatus: state.authorizationStatus,
-  // isDataLoaded: state.isDataLoaded,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLogout() {
-    dispatch(logout());
-  },
 });
 
 export { MainScreen };
-export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
+export default connect(mapStateToProps, null)(MainScreen);

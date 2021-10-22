@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { offerAdapter, commentsAdapter, offersAdapter } from '../../services/adapter-api';
 import fetchOffer from '../../services/api-utils';
 import { Fragment } from 'react';
-import Logo from '../logo/logo';
+import Header from '../header/header';
 import RoomReviewsList from '../room-reviews-list/room-reviews-list';
 import RoomCommentForm from '../room-comment-form/room-comment-form';
 import { getRating, getPluralDesc, RoomScreenClasses, getNearbyPoints } from '../../const';
@@ -34,7 +34,7 @@ function RoomScreen() {
         setPoints(getNearbyPoints(offerAdapter(response[0].data), offersAdapter(response[2].data)));
         setIsLoading(false);
       });
-  }, []);
+  }, [offerId]);
 
   const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images } = data.offer;
   const city = data.offer.city;
@@ -54,33 +54,8 @@ function RoomScreen() {
           </symbol>
         </svg>
       </div>
-
       <div className="page">
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <div className="header__left">
-                <Logo />
-              </div>
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                    </a>
-                  </li>
-                  <li className="header__nav-item">
-                    <a className="header__nav-link" href="#">
-                      <span className="header__signout">Sign out</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
+        <Header />
         {(isLoading || isLoading === null)
           ? <div>Loading</div>
           :
@@ -186,6 +161,5 @@ function RoomScreen() {
     </Fragment>
   );
 }
-
 
 export default RoomScreen;

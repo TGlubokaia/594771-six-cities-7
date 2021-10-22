@@ -27,7 +27,7 @@ function App(props) {
     <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <MainScreen onSignInClick={({history}) => (history.push(AppRoute.LOGIN))}/>
+          <MainScreen />
         </Route>
         <PrivateRoute
           exact
@@ -38,7 +38,7 @@ function App(props) {
           authStatusRequired={AuthorizationStatus.AUTH}
         />
         <Route path={AppRoute.ROOM}>
-          <RoomScreen/>
+          <RoomScreen />
         </Route>
         <PrivateRoute
           exact

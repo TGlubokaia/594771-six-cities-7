@@ -128,6 +128,7 @@ const APIRoute = {
   OFFERS: '/hotels',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  FAVORITES: '/favorite',
   OFFER: (id) => `/hotels/${id}`,
   OFFERS_NEARBY: (id) => `/hotels/${id}/nearby`,
   OFFER_COMMENTS: (id) => `/comments/${id}`,

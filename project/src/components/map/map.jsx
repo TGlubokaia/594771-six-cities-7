@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import pointProp from '../../common/prop-types/point.prop';
-
 import useMap from '../../hooks/useMap';
 
 const defaultIcon = leaflet.icon({
