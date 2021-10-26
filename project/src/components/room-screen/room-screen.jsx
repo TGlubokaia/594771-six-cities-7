@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { offerAdapter, commentsAdapter, offersAdapter } from '../../services/adapter-api';
-import fetchOffer from '../../services/api-utils';
+import { fetchOfferSupplData, fetchOfferData } from '../../services/api-utils';
 import { Fragment } from 'react';
 import Header from '../header/header';
 import RoomReviewsList from '../room-reviews-list/room-reviews-list';
 import RoomCommentForm from '../room-comment-form/room-comment-form';
-import { getRating, getPluralDesc, RoomScreenClasses, getNearbyPoints } from '../../const';
+import { getRating, getPluralDesc, RoomScreenClasses, getAllMapPoints } from '../../const';
 import Map from '../map/map';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 
@@ -14,30 +14,52 @@ function RoomScreen() {
   const params = useParams();
   const offerId = params.id;
 
-  const [data, setData] = useState({
-    offer: {},
-    comments: [],
-  });
-  const [isLoading, setIsLoading] = useState(null);
+  const [offer, setOffer] = useState({});
+  const [comments, setComments] = useState();
+  const [isLoading, setIsLoading] = useState(true);
   const [offersNearby, setOffersNearby] = useState([]);
   const [points, setPoints] = useState([]);
 
+
   useEffect(() => {
     setIsLoading(true);
-    fetchOffer(offerId)
-      .then((response) => {
-        setData({
-          offer: offerAdapter(response[0].data),
-          comments: commentsAdapter(response[1].data),
-        });
-        setOffersNearby(offersAdapter(response[2].data));
-        setPoints(getNearbyPoints(offerAdapter(response[0].data), offersAdapter(response[2].data)));
-        setIsLoading(false);
-      });
+
+    const fetchAllOfferData = async (response) => {
+      const data = await fetchOfferSupplData(offerId);
+      const [serverComments, serverOffersNearby] = data;
+      const adaptedOfferData = offerAdapter(response.data);
+      const adaptedComments = commentsAdapter(serverComments.data);
+      const adaptedOffersNearby = offersAdapter(serverOffersNearby.data);
+      const allMapPoints = getAllMapPoints(adaptedOfferData, adaptedOffersNearby);
+
+      setOffer(adaptedOfferData);
+      setComments(adaptedComments);
+      setOffersNearby(adaptedOffersNearby);
+      setPoints(allMapPoints);
+    };
+
+    let fetchData = async () => {
+      try {
+        const result = await fetchOfferData(offerId);
+        if (result.status === 200 ) {
+          fetchAllOfferData(result);
+        }
+      } catch {
+        console.log('error');
+      }
+    };
+
+    fetchData();
+    setIsLoading(false);
+
+    return fetchData = null;
+
   }, [offerId]);
 
-  const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images } = data.offer;
-  const city = data.offer.city;
+  console.log(offer);
+
+  const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images } = offer;
+  const city = offer.city;
 
   return (
     <Fragment>
@@ -140,14 +162,14 @@ function RoomScreen() {
                     </div>
                   </div>
                   <section className="property__reviews reviews">
-                    <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{/*reviews.length*/}</span></h2>
-                    <RoomReviewsList reviews={data.comments} />
+                    <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                    <RoomReviewsList reviews={comments} />
                     <RoomCommentForm />
                   </section>
                 </div>
               </div>
               <section className="property__map map">
-                <Map city={city} points={points} pointOnFocus={data.offer.location} />
+                <Map city={city} points={points} pointOnFocus={offer.location} />
               </section>
             </section>
             <div className="container">
