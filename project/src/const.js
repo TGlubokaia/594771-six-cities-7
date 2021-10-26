@@ -3,6 +3,7 @@ const AppRoute = {
   FAVORITES: '/favorites',
   ROOM: '/offer/:id',
   ROOT: '/',
+  NOT_FOUND: '/not_found',
 };
 
 const MainScreenClasses = {

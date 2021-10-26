@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { useParams } from 'react-router-dom';
+import browserHistory from '../../browser-history';
+import { getRating, getPluralDesc, RoomScreenClasses, getAllMapPoints, AppRoute } from '../../const';
 import { offerAdapter, commentsAdapter, offersAdapter } from '../../services/adapter-api';
 import { fetchOfferSupplData, fetchOfferData } from '../../services/api-utils';
-import { Fragment } from 'react';
 import Header from '../header/header';
 import RoomReviewsList from '../room-reviews-list/room-reviews-list';
 import RoomCommentForm from '../room-comment-form/room-comment-form';
-import { getRating, getPluralDesc, RoomScreenClasses, getAllMapPoints } from '../../const';
 import Map from '../map/map';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 
@@ -46,7 +46,7 @@ function RoomScreen() {
           setIsLoading(false);
         }
       } catch {
-        console.log('error');
+        browserHistory.push(AppRoute.NOT_FOUND);
       }
     };
 

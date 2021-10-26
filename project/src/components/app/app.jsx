@@ -48,6 +48,9 @@ function App(props) {
           authorizationStatus={authorizationStatus}
           authStatusRequired={AuthorizationStatus.NO_AUTH}
         />
+        <Route exact path={AppRoute.NOT_FOUND}>
+          <NotFoundScreen />
+        </Route>
         <Route>
           <NotFoundScreen />
         </Route>
