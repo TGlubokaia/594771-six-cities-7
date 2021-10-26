@@ -42,7 +42,8 @@ function RoomScreen() {
       try {
         const result = await fetchOfferData(offerId);
         if (result.status === 200 ) {
-          fetchAllOfferData(result);
+          await fetchAllOfferData(result);
+          setIsLoading(false);
         }
       } catch {
         console.log('error');
@@ -50,7 +51,6 @@ function RoomScreen() {
     };
 
     fetchData();
-    setIsLoading(false);
 
     return fetchData = null;
 
