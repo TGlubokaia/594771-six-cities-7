@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { MainScreenClasses, sortTypeNames, getCityData, getPluralDesc } from '../../const';
+import { MainScreenClasses, SortTypeNames, getCityData, getPluralDesc } from '../../const';
 import { getFilteredOffers } from '../../utils/filter';
 import { getSortedOffers } from '../../utils/sort';
 import Header from '../header/header';
@@ -12,7 +12,7 @@ import SortList from '../sort-list/sort-list';
 import Map from '../map/map';
 import offerProp from '../../common/prop-types/offer.prop';
 
-const DEFAULT_SORT_TYPE = sortTypeNames.DEFAULT;
+const DEFAULT_SORT_TYPE = SortTypeNames.DEFAULT;
 
 
 function MainScreen(props) {

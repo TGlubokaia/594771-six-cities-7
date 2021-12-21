@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { sortTypeNames } from '../../const';
+import { SortTypeNames } from '../../const';
+
 function SortList(props) {
   const { onSortType, sortType } = props;
-  const sortTypes = Object.values(sortTypeNames);
+  const sortTypes = Object.values(SortTypeNames);
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -32,4 +33,3 @@ SortList.propTypes = {
 };
 
 export default SortList;
-

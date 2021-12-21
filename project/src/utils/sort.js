@@ -1,14 +1,14 @@
-import {sortTypeNames} from '../const';
+import {SortTypeNames} from '../const';
 
 const getSortedOffers = function (initialOffers, offers, sortType) {
   switch (sortType) {
-    case sortTypeNames.PRICE_LOW_TO_HIGH:
+    case SortTypeNames.PRICE_LOW_TO_HIGH:
       return offers.slice().sort((prevOffer, nextOffer) => prevOffer.price - nextOffer.price);
 
-    case sortTypeNames.PRICE_HIGH_TO_LOW:
+    case SortTypeNames.PRICE_HIGH_TO_LOW:
       return offers.slice().sort((prevOffer, nextOffer) => nextOffer.price - prevOffer.price);
 
-    case sortTypeNames.TOP_RATED:
+    case SortTypeNames.TOP_RATED:
       return offers.slice().sort((prevOffer, nextOffer) => nextOffer.rating - prevOffer.rating);
 
     default:

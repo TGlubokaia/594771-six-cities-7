@@ -1,3 +1,6 @@
+import { fetchOfferComments, fetchOffersNearby } from '../services/api-utils';
+
+
 const offerAdapter = function (offer) {
   return ({
     id: offer.id,
@@ -39,9 +42,7 @@ const offersAdapter = function (serverOffers) {
   return serverOffers.map((offer) => offerAdapter(offer));
 };
 
-
 const userInfoAdapter = function (serverUserInfo) {
-
   return ({
     avatarUrl: serverUserInfo['avatar_url'],
     email: serverUserInfo['email'],
@@ -67,5 +68,16 @@ const commentsAdapter = function (serverComments) {
   }));
 };
 
+const getAdaptedComments = async (id) => {
+  const serverComments = await fetchOfferComments(id);
+  const adaptedComments = commentsAdapter(serverComments);
+  return adaptedComments;
+};
 
-export { offersAdapter, userInfoAdapter, offerAdapter, commentsAdapter };
+const getAdaptedOffersNearby = async (id) => {
+  const serverOffersNearby = await fetchOffersNearby(id);
+  const adaptedOffersNearby = offersAdapter(serverOffersNearby);
+  return adaptedOffersNearby;
+};
+
+export { getAdaptedOffersNearby, userInfoAdapter, offerAdapter, getAdaptedComments, offersAdapter };

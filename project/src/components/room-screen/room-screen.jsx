@@ -1,16 +1,20 @@
 import React, { useEffect, useState, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import browserHistory from '../../browser-history';
-import { getRating, getPluralDesc, RoomScreenClasses, getAllMapPoints, AppRoute } from '../../const';
-import { offerAdapter, commentsAdapter, offersAdapter } from '../../services/adapter-api';
-import { fetchOfferSupplData, fetchOfferData } from '../../services/api-utils';
+import { getRating, getPluralDesc, RoomScreenClasses, getAllMapPoints, AppRoute, AuthorizationStatus } from '../../const';
+import { offerAdapter, getAdaptedComments, getAdaptedOffersNearby } from '../../services/adapter-api';
+import { fetchOfferData } from '../../services/api-utils';
 import Header from '../header/header';
 import RoomReviewsList from '../room-reviews-list/room-reviews-list';
 import RoomCommentForm from '../room-comment-form/room-comment-form';
 import Map from '../map/map';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 
-function RoomScreen() {
+function RoomScreen(props) {
+  const { authorizationStatus } = props;
+
   const params = useParams();
   const offerId = params.id;
 
@@ -20,16 +24,18 @@ function RoomScreen() {
   const [offersNearby, setOffersNearby] = useState([]);
   const [points, setPoints] = useState([]);
 
+  const handleFormSubmit = async () => {
+    const updatedComments = await getAdaptedComments(offerId);
+    setComments(updatedComments);
+  };
 
   useEffect(() => {
     setIsLoading(true);
 
     const fetchAllOfferData = async (response) => {
-      const data = await fetchOfferSupplData(offerId);
-      const [serverComments, serverOffersNearby] = data;
+      const adaptedComments = await getAdaptedComments(offerId);
+      const adaptedOffersNearby = await getAdaptedOffersNearby(offerId);
       const adaptedOfferData = offerAdapter(response.data);
-      const adaptedComments = commentsAdapter(serverComments.data);
-      const adaptedOffersNearby = offersAdapter(serverOffersNearby.data);
       const allMapPoints = getAllMapPoints(adaptedOfferData, adaptedOffersNearby);
 
       setOffer(adaptedOfferData);
@@ -38,10 +44,10 @@ function RoomScreen() {
       setPoints(allMapPoints);
     };
 
-    let fetchData = async () => {
+    const fetchData = async () => {
       try {
         const result = await fetchOfferData(offerId);
-        if (result.status === 200 ) {
+        if (result.status === 200) {
           await fetchAllOfferData(result);
           setIsLoading(false);
         }
@@ -49,14 +55,9 @@ function RoomScreen() {
         browserHistory.push(AppRoute.NOT_FOUND);
       }
     };
-
     fetchData();
 
-    return fetchData = null;
-
   }, [offerId]);
-
-  console.log(offer);
 
   const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images } = offer;
   const city = offer.city;
@@ -79,9 +80,10 @@ function RoomScreen() {
       <div className="page">
         <Header />
         {(isLoading || isLoading === null)
-          ? <div>Loading</div>
+          ? <div>still loading...</div>
           :
           <main className="page__main page__main--property">
+            {}
             <section className="property">
               <div className="property__gallery-container container">
                 <div className="property__gallery">
@@ -164,7 +166,7 @@ function RoomScreen() {
                   <section className="property__reviews reviews">
                     <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
                     <RoomReviewsList reviews={comments} />
-                    <RoomCommentForm />
+                    {authorizationStatus === AuthorizationStatus.AUTH && <RoomCommentForm handleFormSubmit={handleFormSubmit} id={offerId} />}
                   </section>
                 </div>
               </div>
@@ -184,4 +186,13 @@ function RoomScreen() {
   );
 }
 
-export default RoomScreen;
+RoomScreen.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
+
+export { RoomScreen };
+export default connect(mapStateToProps, null)(RoomScreen);

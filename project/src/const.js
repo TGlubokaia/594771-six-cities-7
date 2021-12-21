@@ -84,7 +84,7 @@ const cities = [
   },
 ];
 
-const sortTypeNames = {
+const SortTypeNames = {
   DEFAULT: 'Popular',
   PRICE_LOW_TO_HIGH: 'Price: low to high',
   PRICE_HIGH_TO_LOW: 'Price: high to low',
@@ -135,4 +135,4 @@ const APIRoute = {
   OFFER_COMMENTS: (id) => `/comments/${id}`,
 };
 
-export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, sortTypeNames, MainScreenClasses, RoomScreenClasses, getAllMapPoints, getCityData, cities, AuthorizationStatus, APIRoute };
+export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, SortTypeNames, MainScreenClasses, RoomScreenClasses, getAllMapPoints, getCityData, cities, AuthorizationStatus, APIRoute };
