@@ -38,35 +38,29 @@ const offerAdapter = function (offer) {
   });
 };
 
-const offersAdapter = function (serverOffers) {
-  return serverOffers.map((offer) => offerAdapter(offer));
-};
+const offersAdapter = (serverOffers) => serverOffers.map((offer) => offerAdapter(offer));
 
-const userInfoAdapter = function (serverUserInfo) {
-  return ({
-    avatarUrl: serverUserInfo['avatar_url'],
-    email: serverUserInfo['email'],
-    id: serverUserInfo['id'],
-    isPro: serverUserInfo['is_pro'],
-    userName: serverUserInfo['name'],
-    token: serverUserInfo['token'],
-  });
-};
+const userInfoAdapter = (serverUserInfo) => ({
+  avatarUrl: serverUserInfo['avatar_url'],
+  email: serverUserInfo['email'],
+  id: serverUserInfo['id'],
+  isPro: serverUserInfo['is_pro'],
+  userName: serverUserInfo['name'],
+  token: serverUserInfo['token'],
+});
 
-const commentsAdapter = function (serverComments) {
-  return serverComments.map((comment) => ({
-    id: comment.id,
-    rating: comment.rating,
-    date: comment.date, //2019-05-08T14:13:56.569Z
-    comment: comment.comment,
-    user: {
-      userAvatar: comment.user['avatar_url'],
-      id: comment.user,
-      isPro: comment.user['is_pro'],
-      userName: comment.user['name'],
-    },
-  }));
-};
+const commentsAdapter = (serverComments) => serverComments.map((comment) => ({
+  id: comment.id,
+  rating: comment.rating,
+  date: comment.date,
+  comment: comment.comment,
+  user: {
+    userAvatar: comment.user['avatar_url'],
+    id: comment.user,
+    isPro: comment.user['is_pro'],
+    userName: comment.user['name'],
+  },
+}));
 
 const getAdaptedComments = async (id) => {
   const serverComments = await fetchOfferComments(id);

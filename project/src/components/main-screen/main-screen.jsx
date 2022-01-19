@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { MainScreenClasses, SortTypeNames, getCityData, getPluralDesc } from '../../const';
+import { MainScreenClasses, getPluralDesc } from '../../const';
 import { getFilteredOffers } from '../../utils/filter';
-import { getSortedOffers } from '../../utils/sort';
+import { getSortedOffers, SortTypeNames } from '../../utils/sort';
+import {getCityData} from '../../utils/offer';
 import Header from '../header/header';
 import EmptyList from '../empty-list/empty-list';
 import FiltersList from '../filter-list/filters-list';
@@ -13,7 +14,6 @@ import Map from '../map/map';
 import offerProp from '../../common/prop-types/offer.prop';
 
 const DEFAULT_SORT_TYPE = SortTypeNames.DEFAULT;
-
 
 function MainScreen(props) {
   const { initialOffers, selectedCity } = props;
@@ -25,9 +25,7 @@ function MainScreen(props) {
   const [sortType, setSortType] = useState(DEFAULT_SORT_TYPE);
 
   const onActiveOffer = (offer) => setActiveOffer(offer.location);
-  const onActiveSortType = (sort) => {
-    setSortType(sort);
-  };
+  const onActiveSortType = (sort) => setSortType(sort);
 
   useEffect(() => {
     const sortedOffers = getSortedOffers(filteredOffers, offers, sortType);
@@ -54,7 +52,7 @@ function MainScreen(props) {
           <div className="tabs">
             <FiltersList />
           </div>
-          {offers === []
+          {!offers
             ? <EmptyList />
             :
             <div className="cities">

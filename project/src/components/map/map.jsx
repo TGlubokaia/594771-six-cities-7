@@ -27,16 +27,20 @@ function Map(props) {
     if (map) {
       markers.clearLayers();
       map.setView([city.location.latitude, city.location.longitude], city.location.zoom);
-      points.forEach((point) => {
-        leaflet
-          .marker({
-            lat: point.latitude,
-            lng: point.longitude,
-          }, { icon: (point === pointOnFocus)
-            ? focusedIcon
-            : defaultIcon })
-          .addTo(markers);
-      });
+      if (points) {
+        points.forEach((point) => {
+          leaflet
+            .marker({
+              lat: point.latitude,
+              lng: point.longitude,
+            }, {
+              icon: (point === pointOnFocus)
+                ? focusedIcon
+                : defaultIcon})
+            .addTo(markers);
+        });
+      }
+
     }
   }, [map, city, markers, points]);
 

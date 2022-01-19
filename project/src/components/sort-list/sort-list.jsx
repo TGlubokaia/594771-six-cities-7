@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SortTypeNames } from '../../const';
+import { SortTypeNames } from '../../utils/sort';
 
 function SortList(props) {
   const { onSortType, sortType } = props;

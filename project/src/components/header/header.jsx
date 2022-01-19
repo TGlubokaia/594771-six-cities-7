@@ -7,7 +7,6 @@ import { logout } from '../../store/api-actions';
 import Logo from '../logo/logo';
 
 function Header(props) {
-
   const { authorizationInfo, onLogout } = props;
 
   const handleSignOutClick = () => {

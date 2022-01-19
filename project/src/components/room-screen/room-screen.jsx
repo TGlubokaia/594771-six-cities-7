@@ -1,16 +1,15 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, {useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import browserHistory from '../../browser-history';
-import { getRating, getPluralDesc, RoomScreenClasses, getAllMapPoints, AppRoute, AuthorizationStatus } from '../../const';
-import { offerAdapter, getAdaptedComments, getAdaptedOffersNearby } from '../../services/adapter-api';
-import { fetchOfferData } from '../../services/api-utils';
+import { getRating, getPluralDesc, RoomScreenClasses, AuthorizationStatus } from '../../const';
+import { getAdaptedComments } from '../../services/adapter-api';
 import Header from '../header/header';
 import RoomReviewsList from '../room-reviews-list/room-reviews-list';
 import RoomCommentForm from '../room-comment-form/room-comment-form';
 import Map from '../map/map';
 import OfferItemsList from '../offer-items-list/offer-items-list';
+import useOfferData from '../../hooks/useOfferData';
 
 function RoomScreen(props) {
   const { authorizationStatus } = props;
@@ -18,49 +17,21 @@ function RoomScreen(props) {
   const params = useParams();
   const offerId = params.id;
 
-  const [offer, setOffer] = useState({});
-  const [comments, setComments] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [offersNearby, setOffersNearby] = useState([]);
-  const [points, setPoints] = useState([]);
+  const [allComments, setAllComments] = useState([]);
 
   const handleFormSubmit = async () => {
     const updatedComments = await getAdaptedComments(offerId);
-    setComments(updatedComments);
+    setAllComments(updatedComments);
   };
 
-  useEffect(() => {
-    setIsLoading(true);
+  const handleComments = (initialComments) => {
+    setAllComments(initialComments);
+  };
 
-    const fetchAllOfferData = async (response) => {
-      const adaptedComments = await getAdaptedComments(offerId);
-      const adaptedOffersNearby = await getAdaptedOffersNearby(offerId);
-      const adaptedOfferData = offerAdapter(response.data);
-      const allMapPoints = getAllMapPoints(adaptedOfferData, adaptedOffersNearby);
+  const offerData = useOfferData(offerId, handleComments);
 
-      setOffer(adaptedOfferData);
-      setComments(adaptedComments);
-      setOffersNearby(adaptedOffersNearby);
-      setPoints(allMapPoints);
-    };
-
-    const fetchData = async () => {
-      try {
-        const result = await fetchOfferData(offerId);
-        if (result.status === 200) {
-          await fetchAllOfferData(result);
-          setIsLoading(false);
-        }
-      } catch {
-        browserHistory.push(AppRoute.NOT_FOUND);
-      }
-    };
-    fetchData();
-
-  }, [offerId]);
-
-  const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images } = offer;
-  const city = offer.city;
+  const [offer, offersNearby, points] = offerData;
+  const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images, city } = offer;
 
   return (
     <Fragment>
@@ -79,11 +50,10 @@ function RoomScreen(props) {
       </div>
       <div className="page">
         <Header />
-        {(isLoading || isLoading === null)
+        {(!Object.keys(offer).length)
           ? <div>still loading...</div>
           :
           <main className="page__main page__main--property">
-            {}
             <section className="property">
               <div className="property__gallery-container container">
                 <div className="property__gallery">
@@ -164,8 +134,8 @@ function RoomScreen(props) {
                     </div>
                   </div>
                   <section className="property__reviews reviews">
-                    <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
-                    <RoomReviewsList reviews={comments} />
+                    <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{allComments.length}</span></h2>
+                    <RoomReviewsList reviews={allComments} />
                     {authorizationStatus === AuthorizationStatus.AUTH && <RoomCommentForm handleFormSubmit={handleFormSubmit} id={offerId} />}
                   </section>
                 </div>

@@ -11,7 +11,6 @@ const MainScreenClasses = {
   ITEM: 'cities__place-card',
   ADD: 'tabs__content',
   WRAPPER: 'cities',
-
 };
 
 const RoomScreenClasses = {
@@ -28,95 +27,23 @@ const OfferType = {
   HOTEL: 'Hotel',
 };
 
-const DEFAULT_ZOOM = 12;
-
-const cities = [
-  {
-    location: {
-      latitude: 48.864716,
-      longitude: 2.349014,
-      zoom: DEFAULT_ZOOM,
-    },
-    cityName: 'Paris',
-  },
-  {
-    location: {
-      latitude: 50.936389,
-      longitude: 6.952778,
-      zoom: DEFAULT_ZOOM,
-    },
-    cityName: 'Cologne',
-  },
-  {
-    location: {
-      latitude: 50.8398,
-      longitude: 4.3526,
-      zoom: DEFAULT_ZOOM,
-    },
-    cityName: 'Brussels',
-  },
-  {
-
-    location: {
-      latitude: 52.38333,
-      longitude: 4.9,
-      zoom: DEFAULT_ZOOM,
-    },
-    cityName: 'Amsterdam',
-  },
-  {
-
-    location: {
-      latitude: 53.5436,
-      longitude: 10,
-      zoom: DEFAULT_ZOOM,
-    },
-    cityName: 'Hamburg',
-  },
-  {
-
-    location: {
-      latitude: 51.2243,
-      longitude: 6.7724,
-      zoom: DEFAULT_ZOOM,
-    },
-    cityName: 'Dusseldorf',
-  },
-];
-
-const SortTypeNames = {
-  DEFAULT: 'Popular',
-  PRICE_LOW_TO_HIGH: 'Price: low to high',
-  PRICE_HIGH_TO_LOW: 'Price: high to low',
-  TOP_RATED: 'Top rated first',
-};
-
-const getFavoritesItems = function (offers) {
+const getFavoritesItems = (offers) => {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   return favoriteOffers;
 };
 
-const getRating = function (count) {
-  return Math.round(count) * 20;
-};
+const getRating = (count) => Math.round(count) * 20;
 
-const getPluralDesc = function (count) {
-  return count > 1 || count === 0 ? 's' : '';
-};
+const getPluralDesc = (count) => count > 1 || count === 0 ? 's' : '';
 
-const getAllMapPoints = function (currentOffer, offersNearby) {
+const getAllMapPoints = (currentOffer, offersNearby) => {
+  const allPoints = [];
   const allOffers = offersNearby.slice(0, 3);
   allOffers.push(currentOffer);
-  const allPoints = [];
   for (let i = 0; i < allOffers.length; i++) {
     allPoints.push(allOffers[i].location);
   }
   return allPoints;
-};
-
-const getCityData = function (selectedCity) {
-  const cityData = cities.find((city) => city.cityName === selectedCity);
-  return cityData;
 };
 
 const AuthorizationStatus = {
@@ -135,4 +62,4 @@ const APIRoute = {
   OFFER_COMMENTS: (id) => `/comments/${id}`,
 };
 
-export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, SortTypeNames, MainScreenClasses, RoomScreenClasses, getAllMapPoints, getCityData, cities, AuthorizationStatus, APIRoute };
+export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, MainScreenClasses, RoomScreenClasses, getAllMapPoints, AuthorizationStatus, APIRoute };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { cities } from '../../const';
+import { cities } from '../../utils/offer';
 import FilterItem from '../filter-item/filter-item';
 
 function FiltersList() {

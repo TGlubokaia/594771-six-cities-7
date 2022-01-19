@@ -9,13 +9,13 @@ function OfferItem(props) {
   const { offer, classes, onActiveOffer } = props;
   const { type, price, title, rating, previewImage, isPremium, isFavorite } = offer;
 
-  const handleAcctiveOfferChange = () => {
+  const handleActiveOfferChange = () => {
     onActiveOffer(offer);
   };
 
   return (
     <article className={`${classes.ITEM} place-card`}
-      onMouseEnter={onActiveOffer ? handleAcctiveOfferChange : undefined}
+      onMouseEnter={onActiveOffer ? handleActiveOfferChange : undefined}
     >
 
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}

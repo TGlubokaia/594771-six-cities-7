@@ -1,64 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
-import { postComment } from '../../services/api-utils';
+import useForm from '../../hooks/useForm';
 
 function RoomCommentForm(props) {
   const { handleFormSubmit, id } = props;
-
-  const initialState = {
-    rating: 0,
-    review: '',
-  };
-
-  const [data, setData] = useState(initialState);
-
-  const [reviewInput, setReviewInput] = useState(false);
-  const [ratingError, setRatingError] = useState(true);
-  const [reviewError, setReviewError] = useState(true);
-  const [formError, setFormError] = useState(false);
   const [formValidity, setformValidity] = useState(false);
-  const [isSubmiting, setisSubmiting] = useState(false);
-
-  const { review, rating } = data;
-
-  const handleFieldChange = (evt) => {
-    const { name, value } = evt.target;
-    setData({ ...data, [name]: value });
-
-    switch (evt.target.name) {
-      case 'rating':
-        setRatingError(false);
-        break;
-      case 'review':
-        if (evt.target.validity.valid) {
-          setReviewError(false);
-        } else {
-          setReviewError(true);
-        }
-    }
-  };
-
-  const handleInputBlur = () => {
-    setReviewInput(true);
-  };
-
-  const OnFormSubmit = async (evt) => {
-    evt.preventDefault();
-    setisSubmiting(true);
-    const result = await postComment(id, {comment: review, rating: rating});
-
-    if (result.status === 200) {
-      handleFormSubmit();
-      const inputs = document.querySelectorAll('input[type=radio]');
-      for (const input of inputs) {
-        input.checked = false;
-      }
-      setData(initialState);
-    } else {
-      setFormError(true);
-    }
-    setisSubmiting(false);
-  };
+  const [review, ratingError, reviewError, reviewInput, formError, isSubmiting, handleInputBlur, handleForm, handleFieldChange] = useForm();
 
   useEffect(() => {
     if (!ratingError && !reviewError) {
@@ -70,7 +17,7 @@ function RoomCommentForm(props) {
 
 
   return (
-    <form className="reviews__form form" action="#" method="post" onChange={handleFieldChange} onSubmit={OnFormSubmit}>
+    <form className="reviews__form form" action="#" method="post" onChange={handleFieldChange} onSubmit={(evt) => handleForm( evt, handleFormSubmit, id)}>
       <fieldset style={{ border: 'none' }} disabled={isSubmiting ? 'disabled' : ''}>
         <label className="reviews__label form__label" htmlFor="review">Your review</label>
         {(reviewInput && ratingError) && <div style={{ color: 'red' }}>Необходимо выставить оценку</div>}
