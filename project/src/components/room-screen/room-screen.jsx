@@ -1,9 +1,9 @@
 import React, {useState, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector} from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getRating, getPluralDesc, RoomScreenClasses, AuthorizationStatus } from '../../const';
 import { getAdaptedComments } from '../../services/adapter-api';
+import { getAuthorizationStatus } from '../../store/user/selectors';
 import Header from '../header/header';
 import RoomReviewsList from '../room-reviews-list/room-reviews-list';
 import RoomCommentForm from '../room-comment-form/room-comment-form';
@@ -11,8 +11,8 @@ import Map from '../map/map';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 import useOfferData from '../../hooks/useOfferData';
 
-function RoomScreen(props) {
-  const { authorizationStatus } = props;
+function RoomScreen() {
+  const authorizationStatus = useSelector(getAuthorizationStatus);
 
   const params = useParams();
   const offerId = params.id;
@@ -156,13 +156,4 @@ function RoomScreen(props) {
   );
 }
 
-RoomScreen.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-});
-
-export { RoomScreen };
-export default connect(mapStateToProps, null)(RoomScreen);
+export default RoomScreen;

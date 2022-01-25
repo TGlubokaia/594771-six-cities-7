@@ -1,22 +1,22 @@
 import React, { useRef, Fragment } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import Logo from '../logo/logo';
 import {login} from '../../store/api-actions';
 
 function SignInScreen(props) {
-  const { onSubmit } = props;
+  const dispatch = useDispatch();
 
   const emailRef = useRef();
   const passwordRef = useRef();
 
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
 
-    onSubmit({
+    dispatch(login({
       email: emailRef.current.value,
       password: passwordRef.current.value,
-    });
+    }));
   };
 
   return (
@@ -95,15 +95,4 @@ function SignInScreen(props) {
   );
 }
 
-SignInScreen.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(data) {
-    dispatch(login(data));
-  },
-});
-
-export {SignInScreen};
-export default connect(null, mapDispatchToProps)(SignInScreen);
+export default SignInScreen;

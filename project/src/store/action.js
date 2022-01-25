@@ -1,3 +1,5 @@
+import { createAction } from '@reduxjs/toolkit';
+
 const ActionType = {
   CHANGE_CITY: 'main/changeCities',
   SORT_OFFERS_LIST: 'offers/sortOffers',
@@ -8,34 +10,30 @@ const ActionType = {
   REDIRECTED_TO_ROUTE: 'app/redirectedToRoute',
 };
 
-const ActionCreator = {
-  changeCity: (city) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: city,
-  }),
-  sortOffers: (type) => ({
-    type: ActionType.SORT_OFFERS_LIST,
-    payload: type,
-  }),
-  loadOffers: (offers) => ({
-    type: ActionType.LOAD_OFFERS,
-    payload: offers,
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
-    payload: status,
-  }),
-  login: (authInfo) => ({
-    type: ActionType.LOGIN,
-    payload: authInfo,
-  }),
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
-  redirectedToRoute: (url) => ({
-    type: ActionType.REDIRECTED_TO_ROUTE,
-    payload: url,
-  }),
-};
+const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({
+  payload: city,
+}));
 
-export {ActionType, ActionCreator};
+const sortOffers = createAction(ActionType.SORT_OFFERS_LIST, (type) => ({
+  payload: type,
+}));
+
+const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({
+  payload: offers,
+}));
+
+const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION,(status) => ({
+  payload: status,
+}));
+
+const signin = createAction(ActionType.LOGIN, (authInfo) => ({
+  payload: authInfo,
+}));
+
+const signout = createAction(ActionType.LOGOUT);
+
+const redirectedToRoute = createAction(ActionType.REDIRECTED_TO_ROUTE, (url) => ({
+  payload: url,
+}));
+
+export { ActionType, changeCity, sortOffers, loadOffers, requireAuthorization, signin, signout, redirectedToRoute };

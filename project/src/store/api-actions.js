@@ -1,4 +1,4 @@
-import { ActionCreator } from './action';
+import { loadOffers, requireAuthorization, signin, signout, redirectedToRoute } from './action';
 import { APIRoute, AuthorizationStatus, AppRoute } from '../const';
 import {offersAdapter, userInfoAdapter} from '../services/adapter-api';
 
@@ -6,16 +6,16 @@ const fetchOffers = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
     .then(({data}) => {
       const adaptedData = offersAdapter(data);
-      dispatch(ActionCreator.loadOffers(adaptedData));
+      dispatch(loadOffers(adaptedData));
     })
 );
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
-      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(requireAuthorization(AuthorizationStatus.AUTH));
       const adaptedUserInfo = userInfoAdapter(data);
-      dispatch(ActionCreator.login(adaptedUserInfo));
+      dispatch(signin(adaptedUserInfo));
     })
     .catch(() => { })
 );
@@ -27,17 +27,17 @@ const login = ({email, password}) => (dispatch, _getState, api) => (
       return data;
     })
     .then((data) => {
-      dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+      dispatch(requireAuthorization(AuthorizationStatus.AUTH));
       const adaptedUserInfo = userInfoAdapter(data);
-      dispatch(ActionCreator.login(adaptedUserInfo));
-      dispatch(ActionCreator.redirectedToRoute(AppRoute.ROOT));
+      dispatch(signin(adaptedUserInfo));
+      dispatch(redirectedToRoute(AppRoute.ROOT));
     })
 );
 
 const logout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
-    .then(() => dispatch(ActionCreator.logout()))
+    .then(() => dispatch(signout()))
 );
 
 export {fetchOffers, checkAuth, login, logout};

@@ -79,9 +79,9 @@ MainScreen.propTypes = {
   selectedCity: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  initialOffers: state.initialOffers,
-  selectedCity: state.selectedCity,
+const mapStateToProps = ({FILTER, DATA}) => ({
+  initialOffers: DATA.initialOffers,
+  selectedCity: FILTER.selectedCity,
 });
 
 export { MainScreen };

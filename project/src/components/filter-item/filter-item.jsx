@@ -1,10 +1,18 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { ActionCreator } from '../../store/action';
+import { changeCity } from '../../store/action';
+import { getCityChange } from '../../store/offers-filter/selectors';
 
 function FilterItem(props) {
-  const { city, selectedCity, handleFilterItemClick } = props;
+  const { city } = props;
+
+  const selectedCity = useSelector(getCityChange);
+  const dispatch = useDispatch();
+
+  const handleFilterItemClick = (cityOnClick) => {
+    dispatch(changeCity(cityOnClick));
+  };
 
   return (
     <li className="locations__item"
@@ -17,21 +25,9 @@ function FilterItem(props) {
   );
 }
 
+
 FilterItem.propTypes = {
   city: PropTypes.string.isRequired,
-  selectedCity: PropTypes.string.isRequired,
-  handleFilterItemClick: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  selectedCity: state.selectedCity,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  handleFilterItemClick(city) {
-    dispatch(ActionCreator.changeCity(city));
-  },
-});
-
-export { FilterItem };
-export default connect(mapStateToProps, mapDispatchToProps)(FilterItem);
+export default FilterItem;

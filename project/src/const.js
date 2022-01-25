@@ -62,4 +62,10 @@ const APIRoute = {
   OFFER_COMMENTS: (id) => `/comments/${id}`,
 };
 
-export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, MainScreenClasses, RoomScreenClasses, getAllMapPoints, AuthorizationStatus, APIRoute };
+const NameSpace = {
+  DATA: 'DATA',
+  FILTER: 'FILTER',
+  USER: 'USER',
+};
+
+export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, MainScreenClasses, RoomScreenClasses, getAllMapPoints, AuthorizationStatus, APIRoute, NameSpace };
