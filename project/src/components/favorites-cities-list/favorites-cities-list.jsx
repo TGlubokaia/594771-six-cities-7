@@ -9,15 +9,23 @@ function FavoritesCitiesList(props) {
   const { offers } = props;
 
   return (
-    <ul className="favorites__list">
-      {offers
-        ? getUniqueCitiesNames(offers).map((city) => {
-          const offersByCity = getOffersByCity(city, offers);
+    <main className="page__main page__main--favorites">
+      <div className="page__favorites-container container">
+        <section className="favorites">
+          <h1 className="favorites__title">Saved listing</h1>
+          <ul className="favorites__list">
+            {offers
+              ? getUniqueCitiesNames(offers).map((city) => {
+                const offersByCity = getOffersByCity(city, offers);
 
-          return <FavoritesCityItem key={city} city={city} offers={offersByCity} />;
-        })
-        : ''}
-    </ul>
+                return <FavoritesCityItem key={city} city={city} offers={offersByCity} />;
+              })
+              : ''}
+          </ul>
+        </section>
+      </div>
+    </main>
+
   );
 }
 

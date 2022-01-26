@@ -1,12 +1,13 @@
 import React, {useState, Fragment } from 'react';
 import { useSelector} from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getRating, getPluralDesc, RoomScreenClasses, AuthorizationStatus } from '../../const';
+import { getRating, getPluralDesc, RoomScreenClasses, AuthorizationStatus, FavoriteButtonClasses, buttonSize } from '../../const';
 import { getAdaptedComments } from '../../services/adapter-api';
 import { getAuthorizationStatus } from '../../store/user/selectors';
 import Header from '../header/header';
 import RoomReviewsList from '../room-reviews-list/room-reviews-list';
 import RoomCommentForm from '../room-comment-form/room-comment-form';
+import FavoriteButton from '../favorite-button/favorite-button';
 import Map from '../map/map';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 import useOfferData from '../../hooks/useOfferData';
@@ -31,7 +32,7 @@ function RoomScreen() {
   const offerData = useOfferData(offerId, handleComments);
 
   const [offer, offersNearby, points] = offerData;
-  const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images, city } = offer;
+  const { type, goods, bedrooms, maxAdults, title, desc, price, rating, host, isPremium, isFavorite, images, city, id } = offer;
 
   return (
     <Fragment>
@@ -73,12 +74,7 @@ function RoomScreen() {
                     <h1 className="property__name">
                       {title}
                     </h1>
-                    <button className={`property__bookmark-button ${isFavorite && 'property__bookmark-button--active'} button`} type="button">
-                      <svg className="property__bookmark-icon" width="31" height="33">
-                        <use xlinkHref="#icon-bookmark"></use>
-                      </svg>
-                      <span className="visually-hidden">To bookmarks</span>
-                    </button>
+                    <FavoriteButton buttonClass={FavoriteButtonClasses.ROOM} isFavorite={isFavorite} id={id} size={buttonSize.ROOM}/>
                   </div>
                   <div className="property__rating rating">
                     <div className="property__stars rating__stars">

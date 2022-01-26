@@ -13,6 +13,22 @@ const MainScreenClasses = {
   WRAPPER: 'cities',
 };
 
+const FavoriteButtonClasses = {
+  ROOM: 'property',
+  ITEM: 'place-card',
+};
+
+const buttonSize = {
+  ROOM: {
+    height: 33,
+    width: 31,
+  },
+  ITEM: {
+    height: 19,
+    width: 18,
+  },
+};
+
 const RoomScreenClasses = {
   LIST: 'near-places__list',
   ITEM: 'near-places__card',
@@ -57,6 +73,7 @@ const APIRoute = {
   LOGIN: '/login',
   LOGOUT: '/logout',
   FAVORITES: '/favorite',
+  FAVORITES_POST: (id, status) => `/favorite/${id}/${status}`,
   OFFER: (id) => `/hotels/${id}`,
   OFFERS_NEARBY: (id) => `/hotels/${id}/nearby`,
   OFFER_COMMENTS: (id) => `/comments/${id}`,
@@ -68,4 +85,4 @@ const NameSpace = {
   USER: 'USER',
 };
 
-export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, MainScreenClasses, RoomScreenClasses, getAllMapPoints, AuthorizationStatus, APIRoute, NameSpace };
+export { AppRoute, OfferType, getFavoritesItems, getRating, getPluralDesc, MainScreenClasses, RoomScreenClasses, FavoriteButtonClasses, getAllMapPoints, AuthorizationStatus, APIRoute, NameSpace, buttonSize };

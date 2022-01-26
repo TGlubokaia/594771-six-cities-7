@@ -1,13 +1,13 @@
 import React from 'react';
 import { Fragment } from 'react';
+import useFavorites from '../../hooks/useFavorites';
 import LogoFooter from '../logo/logo-footer';
-import PropTypes from 'prop-types';
-import offerProp from '../../common/prop-types/offer.prop';
 import FavoritesCitiesList from '../favorites-cities-list/favorites-cities-list';
+import FavoritesEmptyList from '../favorites-empty-list/favorites-empty-list';
 import Header from '../header/header';
 
-function FavoritesScreen(props) {
-  const { offers } = props;
+function FavoritesScreen() {
+  const offers = useFavorites();
 
   return (
     <Fragment>
@@ -27,14 +27,9 @@ function FavoritesScreen(props) {
 
       <div className="page">
         <Header />
-        <main className="page__main page__main--favorites">
-          <div className="page__favorites-container container">
-            <section className="favorites">
-              <h1 className="favorites__title">Saved listing</h1>
-              <FavoritesCitiesList offers={offers} />
-            </section>
-          </div>
-        </main>
+        {!offers.length
+          ? <FavoritesEmptyList />
+          : <FavoritesCitiesList offers={offers} />}
         <footer className="footer container">
           <LogoFooter />
         </footer>
@@ -42,9 +37,5 @@ function FavoritesScreen(props) {
     </Fragment>
   );
 }
-
-FavoritesScreen.propTypes = {
-  offers: PropTypes.arrayOf(offerProp),
-};
 
 export default FavoritesScreen;

@@ -52,7 +52,7 @@ function MainScreen(props) {
           <div className="tabs">
             <FiltersList />
           </div>
-          {!offers
+          {!offers.length
             ? <EmptyList />
             :
             <div className="cities">

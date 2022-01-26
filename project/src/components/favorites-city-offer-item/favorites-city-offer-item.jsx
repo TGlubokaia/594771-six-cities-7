@@ -1,12 +1,13 @@
 import React from 'react';
 import offerProp from '../../common/prop-types/offer.prop';
-import {Link} from 'react-router-dom';
-import {AppRoute, getRating} from '../../const.js';
+import { Link } from 'react-router-dom';
+import { getRating, FavoriteButtonClasses, buttonSize } from '../../const.js';
+import FavoriteButton from '../favorite-button/favorite-button';
 
 function FavoritesCityOfferItem(props) {
   const { offer } = props;
 
-  const { price, rating, type, previewImage, title } = offer;
+  const { price, rating, type, previewImage, title, id, isFavorite } = offer;
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">
@@ -20,12 +21,7 @@ function FavoritesCityOfferItem(props) {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">In bookmarks</span>
-          </button>
+          <FavoriteButton buttonClass={FavoriteButtonClasses.ITEM} isFavorite={isFavorite} id={id} size={buttonSize.ITEM}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -34,7 +30,7 @@ function FavoritesCityOfferItem(props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.ROOM}>
+          <Link to={`/offer/${id}`}>
             {title}
           </Link>
         </h2>
