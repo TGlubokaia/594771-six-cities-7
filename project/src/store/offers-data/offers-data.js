@@ -6,7 +6,6 @@ const initialState = {
   isDataLoaded: false,
 };
 
-
 const offersData = createReducer(initialState, (builder) => {
   builder
     .addCase(loadOffers, (state, action) => {
