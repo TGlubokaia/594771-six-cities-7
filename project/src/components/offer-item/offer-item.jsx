@@ -23,7 +23,7 @@ function OfferItem(props) {
       {isPremium && <div className="place-card__mark"><span>Premium</span></div>}
       <div className={`${classes.WRAPPER}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image"/>
         </a>
       </div>
       <div className="place-card__info">
