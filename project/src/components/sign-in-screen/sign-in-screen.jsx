@@ -3,11 +3,12 @@ import { useDispatch } from 'react-redux';
 import Logo from '../logo/logo';
 import {login} from '../../store/api-actions';
 
-function SignInScreen() {
+function SignInScreen(props) {
   const dispatch = useDispatch();
 
   const emailRef = useRef();
   const passwordRef = useRef();
+
 
   const handleSubmit = (evt) => {
     evt.preventDefault();

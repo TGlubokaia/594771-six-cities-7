@@ -3,6 +3,7 @@ import { changeCity } from '../action';
 
 const DEFAULT_CITY = 'Paris';
 
+
 const initialState = {
   selectedCity: DEFAULT_CITY,
 };
@@ -10,7 +11,7 @@ const initialState = {
 const offersFilter = createReducer(initialState, (builder) => {
   builder
     .addCase(changeCity, (state, action) => {
-      state.selectedCity = action.payload;
+      state.selectedCity= action.payload;
     });
 });
 
