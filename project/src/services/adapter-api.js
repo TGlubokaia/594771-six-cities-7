@@ -1,5 +1,10 @@
 import { fetchOfferComments, fetchOffersNearby } from '../services/api-utils';
+import dayjs from 'dayjs';
 
+const getDate = function (serverDate) {
+  const commentDate = dayjs(serverDate).format('MMMM YYYY');
+  return commentDate;
+};
 
 const offerAdapter = function (offer) {
   return ({
@@ -15,50 +20,50 @@ const offerAdapter = function (offer) {
     },
     goods: offer.goods,
     bedrooms: offer.bedrooms,
-    maxAdults: offer.max_adults,
+    maxAdults: offer.maxAdults,
     title: offer.title,
     desc: offer.description,
     price: offer.price,
-    previewImage: offer.preview_image,
+    previewImage: offer.previewImage,
     images: offer.images,
     rating: offer.rating,
     host: {
-      hostAvatar: offer.host.avatar_url,
+      hostAvatar: offer.host.avatarUrl,
       id: offer.host.id,
       hostName: offer.host.name,
-      isPro: offer.host.is_pro,
+      isPro: offer.host.isPro,
     },
     location: {
       latitude: offer.location.latitude,
       longitude: offer.location.longitude,
       zoom: offer.location.zoom,
     },
-    isPremium: offer.is_premium,
-    isFavorite: offer.is_favorite,
+    isPremium: offer.isPremium,
+    isFavorite: offer.isFavorite,
   });
 };
 
 const offersAdapter = (serverOffers) => serverOffers.map((offer) => offerAdapter(offer));
 
 const userInfoAdapter = (serverUserInfo) => ({
-  avatarUrl: serverUserInfo['avatar_url'],
-  email: serverUserInfo['email'],
-  id: serverUserInfo['id'],
-  isPro: serverUserInfo['is_pro'],
-  userName: serverUserInfo['name'],
-  token: serverUserInfo['token'],
+  avatarUrl: serverUserInfo.avatarUrl,
+  email: serverUserInfo.email,
+  id: serverUserInfo.id,
+  isPro: serverUserInfo.isPro,
+  userName: serverUserInfo.name,
+  token: serverUserInfo.token,
 });
 
 const commentsAdapter = (serverComments) => serverComments.map((comment) => ({
   id: comment.id,
   rating: comment.rating,
-  date: comment.date,
+  date: getDate(comment.date),
   comment: comment.comment,
   user: {
-    userAvatar: comment.user['avatar_url'],
+    userAvatar: comment.user.avatarUrl,
     id: comment.user,
-    isPro: comment.user['is_pro'],
-    userName: comment.user['name'],
+    isPro: comment.user.isPro,
+    userName: comment.user.name,
   },
 }));
 
