@@ -1,29 +1,36 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import browserHistory from '../../browser-history';
 import { AppRoute } from '../../const';
 import { getAuthorizationInfo } from '../../store/user/selectors';
+import { fetchFavoriteOffers, fetchOffers } from '../../store/api-actions';
 import { postFavoriteOffer } from '../../services/api-utils';
 
 
 function FavoriteButton(props) {
   const { buttonClass, isFavorite, id, size } = props;
-  const [isFavoriteStatus, setIsFavoriteStatus] = useState(isFavorite);
   const authorizationInfo = useSelector(getAuthorizationInfo);
+  const dispatch = useDispatch();
+
 
   const handleFavoriteClick = () => {
     if (!authorizationInfo) {
       browserHistory.push(AppRoute.LOGIN);
     }
-    const statisIndex = isFavoriteStatus ? 0 : 1;
-    postFavoriteOffer(id, statisIndex);
-    setIsFavoriteStatus(!isFavoriteStatus);
+    const statisIndex = isFavorite? 0 : 1;
+    (async () => {
+      await postFavoriteOffer(id, statisIndex);
+      dispatch(fetchOffers());
+      dispatch(fetchFavoriteOffers());
+    })();
+    // setIsFavoriteStatus(!isFavoriteStatus);
   };
+
 
   return (
     <button
-      className={`${buttonClass}__bookmark-button ${isFavoriteStatus && `${buttonClass}__bookmark-button--active`} button`}
+      className={`${buttonClass}__bookmark-button ${isFavorite && `${buttonClass}__bookmark-button--active`} button`}
       type="button"
       onClick={handleFavoriteClick}
     >
@@ -38,8 +45,11 @@ function FavoriteButton(props) {
 FavoriteButton.propTypes = {
   buttonClass: PropTypes.string.isRequired,
   isFavorite: PropTypes.bool.isRequired,
-  id: PropTypes.string.isRequired,
-  size: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
+  size: PropTypes.shape({
+    height: PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+  }),
 };
 
 export default FavoriteButton;

@@ -1,13 +1,27 @@
-import React from 'react';
-import { Fragment } from 'react';
-import useFavorites from '../../hooks/useFavorites';
+import React, { Fragment, useState, useEffect } from 'react';
 import LogoFooter from '../logo/logo-footer';
 import FavoritesCitiesList from '../favorites-cities-list/favorites-cities-list';
 import FavoritesEmptyList from '../favorites-empty-list/favorites-empty-list';
 import Header from '../header/header';
 
+import { useSelector, useDispatch } from 'react-redux';
+import { getFavorites } from '../../store/offers-data/selectors';
+import { fetchFavoriteOffers }  from '../../store/api-actions';
+
 function FavoritesScreen() {
-  const offers = useFavorites();
+  const dispatch = useDispatch();
+  const storedFavorites = useSelector(getFavorites);
+
+  const [offers, setOffers] = useState(storedFavorites);
+
+  useEffect(() => {
+    dispatch(fetchFavoriteOffers());
+    setOffers(storedFavorites);
+  }, []);
+
+  useEffect(() => {
+    setOffers(storedFavorites);
+  }, [storedFavorites]);
 
   return (
     <Fragment>

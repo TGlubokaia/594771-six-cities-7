@@ -43,7 +43,7 @@ const offerAdapter = function (offer) {
   });
 };
 
-const offersAdapter = (serverOffers) => serverOffers.map((offer) => offerAdapter(offer));
+const offersAdapter = (serverOffers) => serverOffers.length ? serverOffers.map((offer) => offerAdapter(offer)) : [];
 
 const userInfoAdapter = (serverUserInfo) => ({
   avatarUrl: serverUserInfo.avatarUrl,

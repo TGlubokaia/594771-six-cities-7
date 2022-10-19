@@ -11,7 +11,7 @@ const initialState = {
 const user = createReducer(initialState, (builder) => {
   builder
     .addCase(requireAuthorization, (state, action) => {
-      state.authorizationStatus= action.payload;
+      state.authorizationStatus = action.payload;
     })
     .addCase(signin, (state, action) => {
       state.authorizationInfo = action.payload;

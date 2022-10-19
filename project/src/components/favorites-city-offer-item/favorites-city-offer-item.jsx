@@ -6,8 +6,8 @@ import FavoriteButton from '../favorite-button/favorite-button';
 
 function FavoritesCityOfferItem(props) {
   const { offer } = props;
-
   const { price, rating, type, previewImage, title, id, isFavorite } = offer;
+
   return (
     <article className="favorites__card place-card">
       <div className="favorites__image-wrapper place-card__image-wrapper">

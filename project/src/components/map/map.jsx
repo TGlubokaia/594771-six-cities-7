@@ -17,6 +17,16 @@ const focusedIcon = leaflet.icon({
   iconAnchor: [15, 30],
 });
 
+const getIcon = (item, itemOnfocus, defaultColor, focusedColor) => {
+  if (!itemOnfocus) {
+    return defaultColor;
+  } else if (item.latitude === itemOnfocus.latitude && item.longitude === itemOnfocus.longitude) {
+    return focusedColor;
+  } else {
+    return defaultColor;
+  }
+};
+
 
 function Map(props) {
   const { city, points, pointOnFocus } = props;
@@ -34,15 +44,14 @@ function Map(props) {
               lat: point.latitude,
               lng: point.longitude,
             }, {
-              icon: (point === pointOnFocus)
-                ? focusedIcon
-                : defaultIcon})
+              icon: getIcon(point, pointOnFocus, defaultIcon, focusedIcon),
+            })
             .addTo(markers);
         });
       }
 
     }
-  }, [map, city, markers, points]);
+  }, [map, city, markers, points, pointOnFocus]);
 
   return (
     <section

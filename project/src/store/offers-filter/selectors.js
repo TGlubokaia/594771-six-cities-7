@@ -1,5 +1,5 @@
 import { NameSpace } from '../../const';
 
-const getCityChange = (state) => state[NameSpace.FILTER].selectedCity;
+const getSelectedCityName = (state) => state[NameSpace.FILTER].selectedCity;
 
-export {getCityChange};
+export {getSelectedCityName};

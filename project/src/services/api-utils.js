@@ -31,14 +31,8 @@ const postComment = async (id, {comment, rating}) => {
   return newCommentData;
 };
 
-const fetchFavorites = async () => {
-  const favoritesOffersData = await api.get(APIRoute.FAVORITES);
-  const favoritesOffers = handleDataFetch(favoritesOffersData);
-  return favoritesOffers;
-};
-
 const postFavoriteOffer = async (id, status) => {
   await api.post(APIRoute.FAVORITES_POST(id, status));
 };
 
-export { fetchOfferData, fetchOfferComments, fetchOffersNearby, postComment, fetchFavorites, postFavoriteOffer };
+export { fetchOfferData, fetchOfferComments, fetchOffersNearby, postComment, postFavoriteOffer };

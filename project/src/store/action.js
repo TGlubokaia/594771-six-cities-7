@@ -4,6 +4,7 @@ const ActionType = {
   CHANGE_CITY: 'main/changeCities',
   SORT_OFFERS_LIST: 'offers/sortOffers',
   LOAD_OFFERS: 'offers/loadOffers',
+  LOAD_FAVORITES: 'offers/loadFavorites',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGIN: 'user/login',
   LOGOUT: 'user/logout',
@@ -22,6 +23,10 @@ const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({
   payload: offers,
 }));
 
+const loadFavoriteOffers = createAction(ActionType.LOAD_FAVORITES, (offers) => ({
+  payload: offers,
+}));
+
 const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION,(status) => ({
   payload: status,
 }));
@@ -36,4 +41,4 @@ const redirectedToRoute = createAction(ActionType.REDIRECTED_TO_ROUTE, (url) => 
   payload: url,
 }));
 
-export { ActionType, changeCity, sortOffers, loadOffers, requireAuthorization, signin, signout, redirectedToRoute };
+export { ActionType, changeCity, sortOffers, loadOffers, loadFavoriteOffers, requireAuthorization, signin, signout, redirectedToRoute };

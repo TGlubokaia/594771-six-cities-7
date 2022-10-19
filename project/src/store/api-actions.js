@@ -1,18 +1,27 @@
-import { loadOffers, requireAuthorization, signin, signout, redirectedToRoute } from './action';
+import { loadOffers, loadFavoriteOffers, requireAuthorization, signin, signout, redirectedToRoute } from './action';
 import { APIRoute, AuthorizationStatus, AppRoute } from '../const';
-import {offersAdapter, userInfoAdapter} from '../services/adapter-api';
+import { offersAdapter, userInfoAdapter } from '../services/adapter-api';
+
 
 const fetchOffers = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
-    .then(({data}) => {
+    .then(({ data }) => {
       const adaptedData = offersAdapter(data);
       dispatch(loadOffers(adaptedData));
     })
 );
 
+const fetchFavoriteOffers = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.FAVORITES)
+    .then(({ data }) => {
+      const adaptedFavoritesData = offersAdapter(data);
+      dispatch(loadFavoriteOffers(adaptedFavoritesData));
+    })
+);
+
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(({data}) => {
+    .then(({ data }) => {
       dispatch(requireAuthorization(AuthorizationStatus.AUTH));
       const adaptedUserInfo = userInfoAdapter(data);
       dispatch(signin(adaptedUserInfo));
@@ -20,9 +29,9 @@ const checkAuth = () => (dispatch, _getState, api) => (
     .catch(() => { })
 );
 
-const login = ({email, password}) => (dispatch, _getState, api) => (
-  api.post(APIRoute.LOGIN, {email, password})
-    .then(({data}) => {
+const login = ({ email, password }) => (dispatch, _getState, api) => (
+  api.post(APIRoute.LOGIN, { email, password })
+    .then(({ data }) => {
       localStorage.setItem('token', data.token);
       return data;
     })
@@ -40,4 +49,4 @@ const logout = () => (dispatch, _getState, api) => (
     .then(() => dispatch(signout()))
 );
 
-export {fetchOffers, checkAuth, login, logout};
+export { fetchOffers, fetchFavoriteOffers, checkAuth, login, logout };

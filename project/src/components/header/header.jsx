@@ -3,18 +3,16 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppRoute } from '../../const';
 import { logout } from '../../store/api-actions';
-import { getAuthorizationInfo } from '../../store/user/selectors';
+import { getAuthorizationInfo} from '../../store/user/selectors';
 import Logo from '../logo/logo';
 
 function Header() {
   const authorizationInfo = useSelector(getAuthorizationInfo);
+
   const dispatch = useDispatch();
 
-  const onLogout = () => {
-    dispatch(logout());
-  };
   const handleSignOutClick = () => {
-    onLogout();
+    dispatch(logout());
   };
 
   return (
@@ -30,6 +28,7 @@ function Header() {
                 <div className="header__nav-link header__nav-link--profile" href="#">
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
+
                   {authorizationInfo
                     ? <Link to={AppRoute.FAVORITES}><span className="header__user-name user__name">{authorizationInfo.email}</span></Link>
                     : <Link to={AppRoute.LOGIN}><span className="header__login">Sign in</span></Link>}
@@ -39,7 +38,7 @@ function Header() {
                 ? (
                   <li className="header__nav-item" onClick={handleSignOutClick}>
                     <a className="header__nav-link" href="#">
-                      <span className="header__signout" >Sign out</span>
+                      <span className="header__signout">Sign out</span>
                     </a>
                   </li>
                 )

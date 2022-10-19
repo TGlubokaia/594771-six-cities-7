@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { getSelectedCityName } from '../../store/offers-filter/selectors';
+import { getOffers } from '../../store/offers-data/selectors';
 import { MainScreenClasses, getPluralDesc } from '../../const';
 import { getFilteredOffers } from '../../utils/filter';
 import { getSortedOffers, SortTypeNames } from '../../utils/sort';
@@ -11,12 +12,12 @@ import FiltersList from '../filter-list/filters-list';
 import OfferItemsList from '../offer-items-list/offer-items-list';
 import SortList from '../sort-list/sort-list';
 import Map from '../map/map';
-import offerProp from '../../common/prop-types/offer.prop';
 
 const DEFAULT_SORT_TYPE = SortTypeNames.DEFAULT;
 
-function MainScreen(props) {
-  const { initialOffers, selectedCity } = props;
+function MainScreen() {
+  const initialOffers = useSelector(getOffers);
+  const selectedCity = useSelector(getSelectedCityName);
 
   const filteredOffers = getFilteredOffers(initialOffers, selectedCity);
 
@@ -28,14 +29,15 @@ function MainScreen(props) {
   const onActiveSortType = (sort) => setSortType(sort);
 
   useEffect(() => {
-    const sortedOffers = getSortedOffers(filteredOffers, offers, sortType);
-    setOffers(sortedOffers);
-  }, [sortType]);
-
-  useEffect(() => {
     setSortType(DEFAULT_SORT_TYPE);
     setOffers(filteredOffers);
   }, [selectedCity]);
+
+  useEffect(() => {
+    const sortedOffers = getSortedOffers(filteredOffers, sortType);
+    setOffers(sortedOffers);
+  }, [sortType, initialOffers]);
+
 
   const points = offers.map((offer) => offer.location);
   const city = getCityData(selectedCity);
@@ -74,15 +76,5 @@ function MainScreen(props) {
   );
 }
 
-MainScreen.propTypes = {
-  initialOffers: PropTypes.arrayOf(offerProp),
-  selectedCity: PropTypes.string.isRequired,
-};
 
-const mapStateToProps = ({FILTER, DATA}) => ({
-  initialOffers: DATA.initialOffers,
-  selectedCity: FILTER.selectedCity,
-});
-
-export { MainScreen };
-export default connect(mapStateToProps, null)(MainScreen);
+export default MainScreen;

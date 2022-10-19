@@ -2,12 +2,12 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { changeCity } from '../../store/action';
-import { getCityChange } from '../../store/offers-filter/selectors';
+import { getSelectedCityName } from '../../store/offers-filter/selectors';
 
 function FilterItem(props) {
   const { city } = props;
 
-  const selectedCity = useSelector(getCityChange);
+  const selectedCity = useSelector(getSelectedCityName);
   const dispatch = useDispatch();
 
   const handleFilterItemClick = (cityOnClick) => {
